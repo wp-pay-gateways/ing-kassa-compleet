@@ -15,3 +15,8 @@
 
 *	[ING - Kassa Compleet API Documentation v1.2](http://www.wp-pay.org/wp-content/uploads/2015/10/API-Documentation-Kassa-Compleet.pdf)
 *	[ING - Hoe integreer ik Kassa Compleet in mijn webwinkel?](http://www.wp-pay.org/wp-content/uploads/2015/10/Integratiehandleiding-Kassa-Compleet.pdf)
+
+
+## Links
+
+*	[ING - Kassa Compleet](https://portal.kassacompleet.nl/)
