@@ -3,7 +3,7 @@
 **ING Kassa Compleet driver for the WordPress payment processing library.**
 
 [![Build Status](https://travis-ci.org/wp-pay-gateways/ing-kassa-compleet.svg?branch=develop)](https://travis-ci.org/wp-pay-gateways/ing-kassa-compleet)
-[![Coverage Status](https://coveralls.io/repos/wp-pay-gateways/ing-kassa-compleet/badge.png?branch=develop)](https://coveralls.io/r/wp-pay-gateways/ing-kassa-compleet?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/wp-pay-gateways/ing-kassa-compleet/badge.svg?branch=master&service=github)](https://coveralls.io/github/wp-pay-gateways/ing-kassa-compleet?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/wp-pay-gateways/ing-kassa-compleet/v/stable.svg)](https://packagist.org/packages/wp-pay-gateways/ing-kassa-compleet)
 [![Total Downloads](https://poser.pugx.org/wp-pay-gateways/ing-kassa-compleet/downloads.svg)](https://packagist.org/packages/wp-pay-gateways/ing-kassa-compleet)
 [![Latest Unstable Version](https://poser.pugx.org/wp-pay-gateways/ing-kassa-compleet/v/unstable.svg)](https://packagist.org/packages/wp-pay-gateways/ing-kassa-compleet)
