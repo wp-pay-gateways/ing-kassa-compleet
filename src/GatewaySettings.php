@@ -29,6 +29,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_GatewaySettings extends Pronami
 	public function fields( array $fields ) {
 		// API Key
 		$fields[] = array(
+			'filter'      => FILTER_SANITIZE_STRING,
 			'section'     => 'ing_kassa_compleet',
 			'meta_key'    => '_pronamic_gateway_ing_kassa_compleet_api_key',
 			'title'       => _x( 'API Key', 'ing_kassa_compleet', 'pronamic_ideal' ),
