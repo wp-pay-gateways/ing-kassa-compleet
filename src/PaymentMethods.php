@@ -8,7 +8,7 @@
  * @author Remco Tolsma
  * @version 1.0.0
  */
-class Pronamic_WP_Pay_ING_KassaCompleet_PaymentMethods {
+class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods {
 	/**
 	 * Constant for the iDEAL payment method.
 	 *

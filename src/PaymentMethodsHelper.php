@@ -8,7 +8,7 @@
  * @author Remco Tolsma
  * @version 1.0.0
  */
-class Pronamic_WP_Pay_ING_KassaCompleet_PaymentMethodsHelper {
+class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsHelper {
 	/**
 	 * Transform an ING Kassa Compleet payment method to the WordPress pay payment method.
 	 *
