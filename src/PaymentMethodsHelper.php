@@ -17,13 +17,13 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsHelper {
 	 */
 	public static function transform( $payment_method ) {
 		switch ( $payment_method ) {
-			case Pronamic_WP_Pay_ING_KassaCompleet_PaymentMethods::IDEAL :
+			case Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::IDEAL :
 				return Pronamic_WP_Pay_PaymentMethods::IDEAL;
-			case Pronamic_WP_Pay_ING_KassaCompleet_PaymentMethods::CREDIT_CARD :
+			case Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::CREDIT_CARD :
 				return Pronamic_WP_Pay_PaymentMethods::CREDIT_CARD;
-			case Pronamic_WP_Pay_ING_KassaCompleet_PaymentMethods::BANK_TRANSFER :
+			case Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::BANK_TRANSFER :
 				return Pronamic_WP_Pay_PaymentMethods::BANK_TRANSFER;
-			case Pronamic_WP_Pay_ING_KassaCompleet_PaymentMethods::CASH_ON_DELIVERY :
+			case Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::CASH_ON_DELIVERY :
 				return null;
 			default :
 				return null;

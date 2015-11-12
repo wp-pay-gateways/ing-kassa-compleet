@@ -9,11 +9,11 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Integration {
 	}
 
 	public function get_config_factory_class() {
-		
+
 	}
 
 	public function get_config_class() {
-		
+
 	}
 
 	public function get_settings_class() {
@@ -21,6 +21,6 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Integration {
 	}
 
 	public function get_gateway_class() {
-		
+
 	}
 }
