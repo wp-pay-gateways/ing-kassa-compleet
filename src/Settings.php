@@ -36,6 +36,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Settings extends Pronamic_WP_Pa
 			'type'        => 'text',
 			'classes'     => array( 'regular-text', 'code' ),
 			'methods'     => array( 'ing_kassa_compleet' ),
+			'description' => sprintf( __( 'You can find the API key in the <a href="%s" target="_blank">ING Kassa Compleet dashboard</a>.', 'pronamic_ideal' ), 'https://portal.kassacompleet.nl/' ),
 		);
 
 		// Return
