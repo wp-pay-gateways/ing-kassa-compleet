@@ -56,7 +56,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsHelper {
 
 		foreach( self::$payment_methods as $ing_method => $method ) {
 			if ( null !== $method ) {
-				$methods[$ing_method] => $method;
+				$methods[$method] = $ing_method;
 			}
 		}
 

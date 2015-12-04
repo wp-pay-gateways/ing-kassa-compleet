@@ -75,9 +75,9 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 	/////////////////////////////////////////////////
 
 	/**
-	 * Get supported payment methods
+	 * Get payment methods
 	 *
-	 * @see Pronamic_WP_Pay_Gateway::get_supported_payment_methods()
+	 * @see Pronamic_WP_Pay_Gateway::get_payment_methods()
 	 */
 	public function get_payment_methods() {
 		return Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsHelper::get_methods();
