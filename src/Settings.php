@@ -3,11 +3,12 @@
 /**
  * Title: ING Kassa Compleet gateway settings
  * Description:
- * Copyright: Copyright (c) 2005 - 2015
+ * Copyright: Copyright (c) 2005 - 2016
  * Company: Pronamic
+ *
  * @author Remco Tolsma
- * @version 1.2.0
- * @since 1.2.0
+ * @version 1.0.0
+ * @since 1.0.0
  */
 class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Settings extends Pronamic_WP_Pay_GatewaySettings {
 	public function __construct() {
