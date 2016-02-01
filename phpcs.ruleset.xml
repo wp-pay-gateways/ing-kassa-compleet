@@ -5,5 +5,11 @@
 		<exclude name="Generic.Files.LowercasedFilename.NotFound" />
 
 		<exclude name="Squiz.Commenting" />
+		<exclude name="Squiz.PHP.CommentedOutCode.Found" />
+	</rule>
+
+	<rule ref="WordPress.VIP.SlowDBQuery.slow_db_query">
+		<!-- The 'meta_key' is not related to an slow database query. -->
+		<exclude-pattern>/src/Settings.php</exclude-pattern>
 	</rule>
 </ruleset>
