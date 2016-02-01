@@ -59,7 +59,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_OrderRequest {
 		);
 
 		// Add payment method details
-		switch( $this->method ) {
+		switch ( $this->method ) {
 			case Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::IDEAL :
 				$payment_method['payment_method_details'] = array(
 					'issuer_id' => $this->issuer,

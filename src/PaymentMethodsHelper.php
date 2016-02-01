@@ -32,8 +32,8 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsHelper {
 	 * @return string
 	 */
 	public static function transform( $payment_method ) {
-		if ( isset( self::$payment_methods[$payment_method] ) ) {
-			return self::$payment_methods[$payment_method];
+		if ( isset( self::$payment_methods[ $payment_method ] ) ) {
+			return self::$payment_methods[ $payment_method ];
 		}
 
 		return null;
@@ -56,9 +56,9 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsHelper {
 	public static function get_supported_methods() {
 		$methods = array();
 
-		foreach( self::$payment_methods as $ing_method => $method ) {
+		foreach ( self::$payment_methods as $ing_method => $method ) {
 			if ( null !== $method ) {
-				$methods[$method] = $ing_method;
+				$methods[ $method ] = $ing_method;
 			}
 		}
 

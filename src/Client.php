@@ -63,8 +63,8 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Client {
 			'Authorization' => 'Basic ' . base64_encode( $this->api_key . ':' ),
 		);
 
-		if ( is_array( $data ) && ! empty ( $data ) ) {
-			$data = json_encode( $data );
+		if ( is_array( $data ) && ! empty( $data ) ) {
+			$data = wp_json_encode( $data );
 
 			$headers['Content-Type'] = 'application/json';
 		}
