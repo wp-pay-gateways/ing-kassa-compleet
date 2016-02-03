@@ -7,7 +7,7 @@
  * Company: Pronamic
  *
  * @author Reüel van der Steege
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
 class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay_Gateway {
@@ -105,7 +105,9 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 	 * @see Pronamic_WP_Pay_Gateway::get_input_html()
 	 */
 	public function get_input_html() {
-		if ( empty( $this->get_payment_method() ) ) {
+		$payment_method = $this->get_payment_method();
+
+		if ( empty( $payment_method ) ) {
 			$this->set_payment_method( Pronamic_WP_Pay_PaymentMethods::IDEAL );
 		}
 
