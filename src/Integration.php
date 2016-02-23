@@ -22,10 +22,6 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Integration extends Pronamic_WP
 		return 'Pronamic_WP_Pay_Gateways_ING_KassaCompleet_ConfigFactory';
 	}
 
-	public function get_config_class() {
-		return 'Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Config';
-	}
-
 	public function get_settings_class() {
 		return 'Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Settings';
 	}
