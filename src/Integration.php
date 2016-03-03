@@ -15,6 +15,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Integration extends Pronamic_WP
 		$this->id            = 'ing-kassa-compleet';
 		$this->name          = 'ING Kassa Compleet';
 		$this->provider      = 'ing';
+		$this->product_url   = 'https://www.ing.nl/zakelijk/betalen/geld-ontvangen/kassa-compleet/';
 		$this->dashboard_url = 'https://portal.kassacompleet.nl/';
 	}
 
