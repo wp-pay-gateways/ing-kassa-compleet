@@ -21,6 +21,20 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Settings extends Pronamic_WP_Pa
 		$sections['ing_kassa_compleet'] = array(
 			'title'   => __( 'ING Kassa Compleet', 'pronamic_ideal' ),
 			'methods' => array( 'ing_kassa_compleet' ),
+			'description' => sprintf(
+				__( 'Account details are provided by %s after registration. These settings need to match with the %1$s dashboard.', 'pronamic_ideal' ),
+				__( 'ING', 'pronamic_ideal' )
+			),
+		);
+
+		// Transaction feedback
+		$sections['ing_kassa_compleet_feedback'] = array(
+			'title'   => __( 'Transaction feedback', 'pronamic_ideal' ),
+			'methods' => array( 'ing_kassa_compleet' ),
+			'description' => sprintf(
+				__( 'Set the Webhook URL in the %s dashboard to receive automatic transaction status updates.', 'pronamic_ideal' ),
+				__( 'ING Kassa Compleet', 'pronamic_ideal' )
+			),
 		);
 
 		// Return
@@ -37,7 +51,40 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Settings extends Pronamic_WP_Pa
 			'type'        => 'text',
 			'classes'     => array( 'regular-text', 'code' ),
 			'methods'     => array( 'ing_kassa_compleet' ),
-			'description' => sprintf( __( 'You can find the API key in the <a href="%s" target="_blank">ING Kassa Compleet dashboard</a>.', 'pronamic_ideal' ), 'https://portal.kassacompleet.nl/' ),
+			'tooltip'     => sprintf(
+				'%s %s.',
+				__( 'API key', 'pronamic_ideal' ),
+				sprintf(
+					__( 'as mentioned in the %s dashboard', 'pronamic_ideal' ),
+					__( 'ING Kassa Compleet', 'pronamic_ideal' )
+				)
+			),
+		);
+
+		// Transaction feedback
+		$fields[] = array(
+			'section'     => 'ing_kassa_compleet',
+			'methods'     => array( 'ing_kassa_compleet' ),
+			'title'       => __( 'Transaction feedback', 'pronamic_ideal' ),
+			'type'        => 'description',
+			'html'        => sprintf(
+				'<span class="dashicons dashicons-warning pronamic-pay-maybe"></span> %s',
+				__( 'Receiving payment status updates needs additional configuration, if not yet completed.', 'pronamic_ideal' )
+			),
+		);
+
+		// Webhook URL
+		$fields[] = array(
+			'section'     => 'ing_kassa_compleet_feedback',
+			'title'       => __( 'Webhook URL', 'pronamic_ideal' ),
+			'type'        => 'text',
+			'classes'     => array( 'large-text', 'code' ),
+			'value'       => add_query_arg( 'ing_kassa_compleet_webhook', '', home_url( '/' ) ),
+			'readonly'    => true,
+			'tooltip'     => sprintf(
+				__( 'Copy the Webhook URL to the %s dashboard to receive automatic transaction status updates.', 'pronamic_ideal' ),
+				__( 'ING Kassa Compleet', 'pronamic_ideal' )
+			),
 		);
 
 		// Return
