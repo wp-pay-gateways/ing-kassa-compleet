@@ -19,8 +19,8 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Settings extends Pronamic_WP_Pa
 	public function sections( array $sections ) {
 		// iDEAL
 		$sections['ing_kassa_compleet'] = array(
-			'title'   => __( 'ING Kassa Compleet', 'pronamic_ideal' ),
-			'methods' => array( 'ing_kassa_compleet' ),
+			'title'       => __( 'ING Kassa Compleet', 'pronamic_ideal' ),
+			'methods'     => array( 'ing_kassa_compleet' ),
 			'description' => sprintf(
 				__( 'Account details are provided by %s after registration. These settings need to match with the %1$s dashboard.', 'pronamic_ideal' ),
 				__( 'ING', 'pronamic_ideal' )
@@ -29,15 +29,15 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Settings extends Pronamic_WP_Pa
 
 		// Transaction feedback
 		$sections['ing_kassa_compleet_feedback'] = array(
-			'title'   => __( 'Transaction feedback', 'pronamic_ideal' ),
-			'methods' => array( 'ing_kassa_compleet' ),
+			'title'       => __( 'Transaction feedback', 'pronamic_ideal' ),
+			'methods'     => array( 'ing_kassa_compleet' ),
 			'description' => sprintf(
 				__( 'Set the Webhook URL in the %s dashboard to receive automatic transaction status updates.', 'pronamic_ideal' ),
 				__( 'ING Kassa Compleet', 'pronamic_ideal' )
 			),
 		);
 
-		// Return
+		// Return sections
 		return $sections;
 	}
 
@@ -87,7 +87,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Settings extends Pronamic_WP_Pa
 			),
 		);
 
-		// Return
+		// Return fields
 		return $fields;
 	}
 }
