@@ -10,6 +10,9 @@
  * @version 1.0.1
  */
 class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Listener implements Pronamic_Pay_Gateways_ListenerInterface {
+	/**
+	 * Listen to ING Kassa Compleet webhook requests.
+	 */
 	public static function listen() {
 		if ( filter_has_var( INPUT_GET, 'ing_kassa_compleet_webhook' ) ) {
 			$data = json_decode( file_get_contents( 'php://input' ) );
