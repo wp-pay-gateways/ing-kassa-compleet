@@ -7,7 +7,7 @@
  * Company: Pronamic
  *
  * @author Reüel van der Steege
- * @version 1.0.2
+ * @version 1.0.3
  * @since 1.0.0
  */
 class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Integration extends Pronamic_WP_Pay_Gateways_AbstractIntegration {
@@ -15,7 +15,15 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Integration extends Pronamic_WP
 		$this->id            = 'ing-kassa-compleet';
 		$this->name          = 'ING Kassa Compleet';
 		$this->provider      = 'ing';
+		$this->product_url   = 'https://www.ing.nl/zakelijk/betalen/geld-ontvangen/kassa-compleet/';
 		$this->dashboard_url = 'https://portal.kassacompleet.nl/';
+
+		// Actions
+		$function = array( 'Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Listener', 'listen' );
+
+		if ( ! has_action( 'wp_loaded', $function ) ) {
+			add_action( 'wp_loaded', $function );
+		}
 	}
 
 	public function get_config_factory_class() {
