@@ -7,7 +7,8 @@
  * Company: Pronamic
  *
  * @author Reüel van der Steege
- * @version 1.0.1
+ * @version 1.0.3
+ * @since 1.0.1
  */
 class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Listener implements Pronamic_Pay_Gateways_ListenerInterface {
 	/**
