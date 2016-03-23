@@ -14,7 +14,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Listener implements Pronamic_Pa
 		if ( filter_has_var( INPUT_GET, 'ing_kassa_compleet_webhook' ) ) {
 			$data = json_decode( file_get_contents( 'php://input' ) );
 
-			if ( isset( $data->order_id ) ) {
+			if ( is_object( $data ) && isset( $data->order_id ) ) {
 				$payment = get_pronamic_payment_by_transaction_id( $data->order_id );
 
 				Pronamic_WP_Pay_Plugin::update_payment( $payment, false );
