@@ -7,7 +7,7 @@
  * Company: Pronamic
  *
  * @author Reüel van der Steege
- * @version 1.0.3
+ * @version 1.0.4
  * @since 1.0.0
  */
 class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay_Gateway {
@@ -120,21 +120,22 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 	 * Start
 	 *
 	 * @see Pronamic_WP_Pay_Gateway::start()
-	 * @param Pronamic_Pay_PaymentDataInterface $data
 	 */
-	public function start( Pronamic_Pay_PaymentDataInterface $data, Pronamic_Pay_Payment $payment, $payment_method = null ) {
+	public function start( Pronamic_Pay_Payment $payment ) {
 		$request = new Pronamic_WP_Pay_Gateways_ING_KassaCompleet_OrderRequest();
 
-		$request->currency          = $data->get_currency();
-		$request->amount            = $data->get_amount();
-		$request->merchant_order_id = $data->get_order_id();
-		$request->description       = $data->get_description();
+		$request->currency          = $payment->get_currency();
+		$request->amount            = $payment->get_amount();
+		$request->merchant_order_id = $payment->get_order_id();
+		$request->description       = $payment->get_description();
 		$request->return_url        = $payment->get_return_url();
 
 		// To make the 'Test' meta box work, set payment method to iDEAL if an issuer_id has been set.
-		$issuer_id = $data->get_issuer_id();
+		$issuer = $payment->get_issuer();
 
-		if ( ! empty( $issuer_id ) ) {
+		$payment_method = $payment->get_method();
+
+		if ( ! empty( $issuer ) ) {
 			$payment_method = Pronamic_WP_Pay_PaymentMethods::IDEAL;
 		}
 
@@ -149,7 +150,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 				break;
 			case Pronamic_WP_Pay_PaymentMethods::IDEAL :
 				$request->method = Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::IDEAL;
-				$request->issuer = $issuer_id;
+				$request->issuer = $issuer;
 
 				break;
 		}
