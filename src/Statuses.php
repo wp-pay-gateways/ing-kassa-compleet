@@ -12,11 +12,18 @@
  */
 class Pronamic_WP_Pay_ING_KassaCompleet_Statuses {
 	/**
-	 * Success
+	 * Completed
 	 *
 	 * @var string
 	 */
 	const COMPLETED = 'completed';
+
+	/**
+	 * Error
+	 *
+	 * @var string
+	 */
+	const ERROR = 'error';
 
 	/**
 	 * Pending
@@ -56,6 +63,9 @@ class Pronamic_WP_Pay_ING_KassaCompleet_Statuses {
 	 */
 	public static function transform( $status ) {
 		switch ( $status ) {
+			case self::ERROR :
+				return Pronamic_WP_Pay_Statuses::FAILURE;
+
 			case self::PENDING :
 			case self::PROCESSING :
 				return Pronamic_WP_Pay_Statuses::OPEN;
