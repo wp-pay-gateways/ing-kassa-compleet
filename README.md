@@ -8,7 +8,7 @@
 [![Total Downloads](https://poser.pugx.org/wp-pay-gateways/ing-kassa-compleet/downloads.svg)](https://packagist.org/packages/wp-pay-gateways/ing-kassa-compleet)
 [![Latest Unstable Version](https://poser.pugx.org/wp-pay-gateways/ing-kassa-compleet/v/unstable.svg)](https://packagist.org/packages/wp-pay-gateways/ing-kassa-compleet)
 [![License](https://poser.pugx.org/wp-pay-gateways/ing-kassa-compleet/license.svg)](https://packagist.org/packages/wp-pay-gateways/ing-kassa-compleet)
-[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.svg)](http://gruntjs.com/)
 
 
 ## Documentation
