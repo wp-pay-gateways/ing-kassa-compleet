@@ -82,7 +82,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 	 * @see Pronamic_WP_Pay_Gateway::get_payment_methods()
 	 */
 	public function get_payment_methods() {
-		return Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsHelper::get_methods();
+		return $this->get_supported_payment_methods();
 	}
 
 	/**
@@ -91,7 +91,11 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 	 * @see Pronamic_WP_Pay_Gateway::get_supported_payment_methods()
 	 */
 	public function get_supported_payment_methods() {
-		return Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsHelper::get_supported_methods();
+		return array(
+			Pronamic_WP_Pay_PaymentMethods::BANK_TRANSFER,
+			Pronamic_WP_Pay_PaymentMethods::CREDIT_CARD,
+			Pronamic_WP_Pay_PaymentMethods::IDEAL,
+		);
 	}
 
 	/////////////////////////////////////////////////
@@ -137,23 +141,11 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 
 		if ( ! empty( $issuer ) ) {
 			$payment_method = Pronamic_WP_Pay_PaymentMethods::IDEAL;
+
+			$request->issuer = $issuer;
 		}
 
-		switch ( $payment_method ) {
-			case Pronamic_WP_Pay_PaymentMethods::BANK_TRANSFER :
-				$request->method = Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::BANK_TRANSFER;
-
-				break;
-			case Pronamic_WP_Pay_PaymentMethods::CREDIT_CARD :
-				$request->method = Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::CREDIT_CARD;
-
-				break;
-			case Pronamic_WP_Pay_PaymentMethods::IDEAL :
-				$request->method = Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::IDEAL;
-				$request->issuer = $issuer;
-
-				break;
-		}
+		$request->method = Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::transform( $payment_method );
 
 		$order = $this->client->create_order( $request );
 
