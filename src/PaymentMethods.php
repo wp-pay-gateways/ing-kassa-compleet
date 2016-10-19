@@ -7,7 +7,7 @@
  * Company: Pronamic
  *
  * @author Remco Tolsma
- * @version 1.0.0
+ * @version 1.0.5
  * @since 1.0.0
  */
 class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods {
@@ -48,7 +48,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods {
 	/**
 	 * Transform WordPress payment method to ING Kassa Compleet method.
 	 *
-	 * @since 1.1.6
+	 * @since 1.0.5
 	 * @param string $method
 	 * @return string
 	 */

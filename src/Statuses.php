@@ -7,7 +7,7 @@
  * Company: Pronamic
  *
  * @author Reüel van der Steege
- * @version 1.0.0
+ * @version 1.0.5
  * @since 1.0.0
  */
 class Pronamic_WP_Pay_ING_KassaCompleet_Statuses {
@@ -21,6 +21,7 @@ class Pronamic_WP_Pay_ING_KassaCompleet_Statuses {
 	/**
 	 * Error
 	 *
+	 * @since 1.0.5
 	 * @var string
 	 */
 	const ERROR = 'error';
