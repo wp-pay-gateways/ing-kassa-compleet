@@ -7,7 +7,7 @@ This projects adheres to [Semantic Versioning](http://semver.org/) and [Keep a C
 ## [Unreleased][unreleased]
 -
 
-## [1.0.5] - 2016-10-19
+## [1.0.5] - 2016-10-20
 - Added `payment_status_request` feature support.
 - Removed schedule status check event, this will be part of the Pronamic iDEAL plugin.
 - Simplified payment methods constants code.
