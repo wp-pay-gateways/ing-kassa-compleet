@@ -7,16 +7,24 @@
  * Company: Pronamic
  *
  * @author Reüel van der Steege
- * @version 1.0.0
+ * @version 1.0.5
  * @since 1.0.0
  */
 class Pronamic_WP_Pay_ING_KassaCompleet_Statuses {
 	/**
-	 * Success
+	 * Completed
 	 *
 	 * @var string
 	 */
 	const COMPLETED = 'completed';
+
+	/**
+	 * Error
+	 *
+	 * @since 1.0.5
+	 * @var string
+	 */
+	const ERROR = 'error';
 
 	/**
 	 * Pending
@@ -56,6 +64,9 @@ class Pronamic_WP_Pay_ING_KassaCompleet_Statuses {
 	 */
 	public static function transform( $status ) {
 		switch ( $status ) {
+			case self::ERROR :
+				return Pronamic_WP_Pay_Statuses::FAILURE;
+
 			case self::PENDING :
 			case self::PROCESSING :
 				return Pronamic_WP_Pay_Statuses::OPEN;
