@@ -30,6 +30,9 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 
 		$this->supports = array(
 			'payment_status_request',
+			'recurring_direct_debit',
+			'recurring_credit_card',
+			'recurring',
 		);
 
 		$this->set_method( Pronamic_WP_Pay_Gateway::METHOD_HTTP_REDIRECT );
@@ -143,7 +146,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 
 		$payment_method = $payment->get_method();
 
-		if ( ! empty( $issuer ) ) {
+		if ( '' === $payment_method && ! empty( $issuer ) ) {
 			$payment_method = Pronamic_WP_Pay_PaymentMethods::IDEAL;
 
 			$request->issuer = $issuer;
