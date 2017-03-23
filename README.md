@@ -20,3 +20,5 @@
 ## Links
 
 *	[ING - Kassa Compleet](https://portal.kassacompleet.nl/)
+*	https://wordpress.org/plugins/ing-psp/
+*	https://wordpress.org/plugins/ing-kassa-compleet/
