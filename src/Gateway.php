@@ -99,9 +99,11 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 	 */
 	public function get_supported_payment_methods() {
 		return array(
+			Pronamic_WP_Pay_PaymentMethods::BANCONTACT,
 			Pronamic_WP_Pay_PaymentMethods::BANK_TRANSFER,
 			Pronamic_WP_Pay_PaymentMethods::CREDIT_CARD,
 			Pronamic_WP_Pay_PaymentMethods::IDEAL,
+			Pronamic_WP_Pay_PaymentMethods::SOFORT,
 		);
 	}
 
