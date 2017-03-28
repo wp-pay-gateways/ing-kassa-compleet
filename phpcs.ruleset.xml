@@ -7,10 +7,16 @@
 		<exclude name="Squiz.Commenting" />
 		<exclude name="Squiz.PHP.CommentedOutCode.Found" />
 
-		<exclude name="WordPress.VIP.RestrictedFunctions.file_get_contents" />
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
+
+		<exclude name="WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents" />
+		<exclude name="WordPress.WP.AlternativeFunctions.file_system_read_file_get_contents" />
+
+		<exclude name="WordPress.VIP.RestrictedFunctions.file_get_contents_file_get_contents" />
 	</rule>
 
-	<rule ref="WordPress.VIP.SlowDBQuery.slow_db_query">
+	<rule ref="WordPress.VIP.SlowDBQuery.slow_db_query_meta_key">
 		<!-- The 'meta_key' is not related to an slow database query. -->
 		<exclude-pattern>/src/Settings.php</exclude-pattern>
 	</rule>
