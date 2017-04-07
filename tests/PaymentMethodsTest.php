@@ -3,11 +3,11 @@
 /**
  * Title: ING Kassa Compleet payment methods helper test
  * Description:
- * Copyright: Copyright (c) 2005 - 2016
+ * Copyright: Copyright (c) 2005 - 2017
  * Company: Pronamic
  *
  * @author Remco Tolsma
- * @version 1.0.5
+ * @version 1.0.6
  * @since 1.0.5
  */
 class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsTest extends PHPUnit_Framework_TestCase {

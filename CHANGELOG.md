@@ -7,6 +7,11 @@ This projects adheres to [Semantic Versioning](http://semver.org/) and [Keep a C
 ## [Unreleased][unreleased]
 -
 
+## [1.0.6] - 2017-04-07
+- Only set iDEAL payment method if none set yet.
+- Added two extra payment methods.
+- Added extra supported payment methods.
+
 ## [1.0.5] - 2016-10-20
 - Added `payment_status_request` feature support.
 - Removed schedule status check event, this will be part of the Pronamic iDEAL plugin.
@@ -32,7 +37,8 @@ This projects adheres to [Semantic Versioning](http://semver.org/) and [Keep a C
 ## 1.0.0 - 	2016-02-01
 - First release.
 
-[unreleased]: https://github.com/wp-pay-gateways/ing-kassa-compleet/compare/1.0.5...HEAD
+[unreleased]: https://github.com/wp-pay-gateways/ing-kassa-compleet/compare/1.0.6...HEAD
+[1.0.6]: https://github.com/wp-pay-gateways/ing-kassa-compleet/compare/1.0.5...1.0.6
 [1.0.5]: https://github.com/wp-pay-gateways/ing-kassa-compleet/compare/1.0.4...1.0.5
 [1.0.4]: https://github.com/wp-pay-gateways/ing-kassa-compleet/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/wp-pay-gateways/ing-kassa-compleet/compare/1.0.2...1.0.3

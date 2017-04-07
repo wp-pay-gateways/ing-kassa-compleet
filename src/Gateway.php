@@ -3,11 +3,11 @@
 /**
  * Title: ING Kassa Compleet
  * Description:
- * Copyright: Copyright (c) 2005 - 2016
+ * Copyright: Copyright (c) 2005 - 2017
  * Company: Pronamic
  *
  * @author Reüel van der Steege
- * @version 1.0.5
+ * @version 1.0.6
  * @since 1.0.0
  */
 class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay_Gateway {
