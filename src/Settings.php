@@ -3,7 +3,7 @@
 /**
  * Title: ING Kassa Compleet gateway settings
  * Description:
- * Copyright: Copyright (c) 2005 - 2016
+ * Copyright: Copyright (c) 2005 - 2017
  * Company: Pronamic
  *
  * @author Remco Tolsma
@@ -22,8 +22,10 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Settings extends Pronamic_WP_Pa
 			'title'       => __( 'ING Kassa Compleet', 'pronamic_ideal' ),
 			'methods'     => array( 'ing_kassa_compleet' ),
 			'description' => sprintf(
-				__( 'Account details are provided by %s after registration. These settings need to match with the %1$s dashboard.', 'pronamic_ideal' ),
-				__( 'ING', 'pronamic_ideal' )
+				/* translators: 1: ING, 2: ING Kassa Compleet */
+				__( 'Account details are provided by %1$s after registration. These settings need to match with the %1$s dashboard.', 'pronamic_ideal' ),
+				__( 'ING', 'pronamic_ideal' ),
+				__( 'ING Kassa Compleet', 'pronamic_ideal' )
 			),
 		);
 
@@ -32,6 +34,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Settings extends Pronamic_WP_Pa
 			'title'       => __( 'Transaction feedback', 'pronamic_ideal' ),
 			'methods'     => array( 'ing_kassa_compleet' ),
 			'description' => sprintf(
+				/* translators: %s: ING Kassa Compleet */
 				__( 'Set the Webhook URL in the %s dashboard to receive automatic transaction status updates.', 'pronamic_ideal' ),
 				__( 'ING Kassa Compleet', 'pronamic_ideal' )
 			),
@@ -55,6 +58,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Settings extends Pronamic_WP_Pa
 				'%s %s.',
 				__( 'API key', 'pronamic_ideal' ),
 				sprintf(
+					/* translators: %s: ING Kassa Compleet */
 					__( 'as mentioned in the %s dashboard', 'pronamic_ideal' ),
 					__( 'ING Kassa Compleet', 'pronamic_ideal' )
 				)
@@ -82,6 +86,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Settings extends Pronamic_WP_Pa
 			'value'       => add_query_arg( 'ing_kassa_compleet_webhook', '', home_url( '/' ) ),
 			'readonly'    => true,
 			'tooltip'     => sprintf(
+				/* translators: %s: ING Kassa Compleet */
 				__( 'Copy the Webhook URL to the %s dashboard to receive automatic transaction status updates.', 'pronamic_ideal' ),
 				__( 'ING Kassa Compleet', 'pronamic_ideal' )
 			),

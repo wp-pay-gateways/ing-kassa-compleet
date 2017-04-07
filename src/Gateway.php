@@ -3,11 +3,11 @@
 /**
  * Title: ING Kassa Compleet
  * Description:
- * Copyright: Copyright (c) 2005 - 2016
+ * Copyright: Copyright (c) 2005 - 2017
  * Company: Pronamic
  *
  * @author Reüel van der Steege
- * @version 1.0.5
+ * @version 1.0.6
  * @since 1.0.0
  */
 class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay_Gateway {
@@ -30,6 +30,9 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 
 		$this->supports = array(
 			'payment_status_request',
+			'recurring_direct_debit',
+			'recurring_credit_card',
+			'recurring',
 		);
 
 		$this->set_method( Pronamic_WP_Pay_Gateway::METHOD_HTTP_REDIRECT );
@@ -96,9 +99,11 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 	 */
 	public function get_supported_payment_methods() {
 		return array(
+			Pronamic_WP_Pay_PaymentMethods::BANCONTACT,
 			Pronamic_WP_Pay_PaymentMethods::BANK_TRANSFER,
 			Pronamic_WP_Pay_PaymentMethods::CREDIT_CARD,
 			Pronamic_WP_Pay_PaymentMethods::IDEAL,
+			Pronamic_WP_Pay_PaymentMethods::SOFORT,
 		);
 	}
 
@@ -143,7 +148,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 
 		$payment_method = $payment->get_method();
 
-		if ( ! empty( $issuer ) ) {
+		if ( '' === $payment_method && ! empty( $issuer ) ) {
 			$payment_method = Pronamic_WP_Pay_PaymentMethods::IDEAL;
 
 			$request->issuer = $issuer;
