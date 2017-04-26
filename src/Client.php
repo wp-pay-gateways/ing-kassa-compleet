@@ -89,24 +89,35 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Client {
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 
+		$body = wp_remote_retrieve_body( $response );
+
+		// NULL is returned if the json cannot be decoded or if the encoded data is deeper than the recursion limit.
+		$ing_result = json_decode( $body );
+
 		if ( 201 === $response_code ) {
-			$body = wp_remote_retrieve_body( $response );
-
-			// NULL is returned if the json cannot be decoded or if the encoded data is deeper than the recursion limit.
-			$result = json_decode( $body );
+			if ( $ing_result && 'error' === $ing_result->status ) {
+				$error_msg = $ing_result->transactions[0]->reason;
+				$error     = $ing_result->transactions[0];
+			} else {
+				$result = $ing_result;
+			}
 		} else {
-			$body = wp_remote_retrieve_body( $response );
+			$error_msg = '';
+			$error     = '';
 
-			$ing_result = json_decode( $body );
-
-			$error_msg = $ing_result->error->value;
+			if ( $ing_result ) {
+				$error_msg = $ing_result->error->value;
+				$error     = $ing_result->error;
+			}
 
 			if ( 401 === $response_code ) {
 				// The default error message for an unauthorized API call does not mention the API key in any way.
 				$error_msg .= ' Please check the API key.';
 			}
+		}
 
-			$this->error = new WP_Error( 'ing_kassa_compleet_error', $error_msg, $ing_result->error );
+		if ( isset( $error_msg, $error ) ) {
+			$this->error = new WP_Error( 'ing_kassa_compleet_error', $error_msg, $error );
 		}
 
 		return $result;
