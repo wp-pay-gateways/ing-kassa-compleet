@@ -148,9 +148,11 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 
 		$payment_method = $payment->get_method();
 
-		if ( '' === $payment_method && ! empty( $issuer ) ) {
+		if ( empty( $payment_method ) && ! empty( $issuer ) ) {
 			$payment_method = Pronamic_WP_Pay_PaymentMethods::IDEAL;
+		}
 
+		if ( Pronamic_WP_Pay_PaymentMethods::IDEAL === $payment_method ) {
 			$request->issuer = $issuer;
 		}
 
