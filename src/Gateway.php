@@ -69,7 +69,9 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 	/////////////////////////////////////////////////
 
 	public function get_issuer_field() {
-		if ( Pronamic_WP_Pay_PaymentMethods::IDEAL === $this->get_payment_method() ) {
+		$payment_method = $this->get_payment_method();
+
+		if ( null === $payment_method || Pronamic_WP_Pay_PaymentMethods::IDEAL === $payment_method ) {
 			return array(
 				'id'       => 'pronamic_ideal_issuer_id',
 				'name'     => 'pronamic_ideal_issuer_id',
@@ -107,24 +109,13 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 		);
 	}
 
-	/////////////////////////////////////////////////
-
 	/**
-	 * Get input HTML
+	 * Is payment method required to start transaction?
 	 *
-	 * ING Kassa Compleet does not present a payment screen to the customer if no payment method is set,
-	 * so we use iDEAL as default payment method to make the 'Test' meta box work.
-	 *
-	 * @see Pronamic_WP_Pay_Gateway::get_input_html()
+	 * @see Pronamic_WP_Pay_Gateway::payment_method_is_required()
 	 */
-	public function get_input_html() {
-		$payment_method = $this->get_payment_method();
-
-		if ( empty( $payment_method ) ) {
-			$this->set_payment_method( Pronamic_WP_Pay_PaymentMethods::IDEAL );
-		}
-
-		return parent::get_input_html();
+	public function payment_method_is_required() {
+		return true;
 	}
 
 	/////////////////////////////////////////////////
