@@ -7,7 +7,7 @@
  * Company: Pronamic
  *
  * @author Reüel van der Steege
- * @version 1.0.0
+ * @version 1.0.7
  * @since 1.0.0
  */
 class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Client {
