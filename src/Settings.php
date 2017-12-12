@@ -22,10 +22,9 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Settings extends Pronamic_WP_Pa
 			'title'       => __( 'ING Kassa Compleet', 'pronamic_ideal' ),
 			'methods'     => array( 'ing_kassa_compleet' ),
 			'description' => sprintf(
-				/* translators: 1: ING, 2: ING Kassa Compleet */
+				/* translators: 1: ING */
 				__( 'Account details are provided by %1$s after registration. These settings need to match with the %1$s dashboard.', 'pronamic_ideal' ),
-				__( 'ING', 'pronamic_ideal' ),
-				__( 'ING Kassa Compleet', 'pronamic_ideal' )
+				__( 'ING', 'pronamic_ideal' )
 			),
 		);
 
