@@ -52,6 +52,14 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods {
 	const IDEAL = 'ideal';
 
 	/**
+	 * Constant for the PayPal method.
+	 *
+	 * @see https://plugins.trac.wordpress.org/browser/ing-psp/tags/1.2/ing-php/src/Order/Transaction/PaymentMethod.php#L21
+	 * @var string
+	 */
+	const PAYPAL = 'paypal';
+
+	/**
 	 * Constant for the SOFORT method.
 	 *
 	 * @see https://plugins.trac.wordpress.org/browser/ing-psp/tags/1.0/ing-php/src/Order/Transaction/PaymentMethod.php#L11
@@ -78,6 +86,8 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods {
 				return self::CREDIT_CARD;
 			case Pronamic_WP_Pay_PaymentMethods::IDEAL :
 				return self::IDEAL;
+			case Pronamic_WP_Pay_PaymentMethods::PAYPAL :
+				return self::PAYPAL;
 			case Pronamic_WP_Pay_PaymentMethods::SOFORT :
 				return self::SOFORT;
 			default :
