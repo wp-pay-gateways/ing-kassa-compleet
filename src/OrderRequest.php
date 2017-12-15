@@ -43,10 +43,10 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_OrderRequest {
 
 	public function get_array() {
 		$array = array(
-			'amount'      => Pronamic_WP_Pay_Util::amount_to_cents( $this->amount ),
-			'currency'    => $this->currency,
-			'description' => $this->description,
-			'return_url'  => $this->return_url,
+			'amount'       => Pronamic_WP_Pay_Util::amount_to_cents( $this->amount ),
+			'currency'     => $this->currency,
+			'description'  => $this->description,
+			'return_url'   => $this->return_url,
 			'transactions' => array(),
 		);
 
@@ -60,7 +60,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_OrderRequest {
 
 		// Add payment method details
 		switch ( $this->method ) {
-			case Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::IDEAL :
+			case Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::IDEAL:
 				$payment_method['payment_method_details'] = array(
 					'issuer_id' => $this->issuer,
 				);

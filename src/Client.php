@@ -70,9 +70,9 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Client {
 		}
 
 		$return = wp_remote_request( $url, array(
-			'method'    => $method,
-			'headers'   => $headers,
-			'body'      => $data,
+			'method'  => $method,
+			'headers' => $headers,
+			'body'    => $data,
 		) );
 
 		return $return;

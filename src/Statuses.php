@@ -64,18 +64,18 @@ class Pronamic_WP_Pay_ING_KassaCompleet_Statuses {
 	 */
 	public static function transform( $status ) {
 		switch ( $status ) {
-			case self::ERROR :
+			case self::ERROR:
 				return Pronamic_WP_Pay_Statuses::FAILURE;
 
-			case self::PENDING :
-			case self::PROCESSING :
+			case self::PENDING:
+			case self::PROCESSING:
 				return Pronamic_WP_Pay_Statuses::OPEN;
 
-			case self::CANCELLED :
+			case self::CANCELLED:
 				return Pronamic_WP_Pay_Statuses::CANCELLED;
 
-			case self::COMPLETED :
-			case self::SUCCESS :
+			case self::COMPLETED:
+			case self::SUCCESS:
 				return Pronamic_WP_Pay_Statuses::SUCCESS;
 
 			default:
