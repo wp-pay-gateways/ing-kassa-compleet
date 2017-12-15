@@ -52,6 +52,13 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods {
 	const IDEAL = 'ideal';
 
 	/**
+	 * Constant for the Payconiq method.
+	 *
+	 * @var string
+	 */
+	const PAYCONIQ = 'payconiq';
+
+	/**
 	 * Constant for the PayPal method.
 	 *
 	 * @see https://plugins.trac.wordpress.org/browser/ing-psp/tags/1.2/ing-php/src/Order/Transaction/PaymentMethod.php#L21
