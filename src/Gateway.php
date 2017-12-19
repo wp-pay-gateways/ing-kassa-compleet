@@ -155,7 +155,41 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 
 		if ( $order ) {
 			$payment->set_transaction_id( $order->id );
-			$payment->set_action_url( $order->transactions[0]->payment_url );
+
+			$action_url = add_query_arg( array(
+				'payment_redirect' => $payment->get_id(),
+				'key'              => $payment->key,
+			), home_url( '/' ) );
+
+			if ( Pronamic_WP_Pay_PaymentMethods::BANK_TRANSFER === $payment_method ) {
+				// Set payment redirect message with received transaction reference.
+				// @see https://s3-eu-west-1.amazonaws.com/wl1-apidocs/api.kassacompleet.nl/index.html#payment-methods-without-the-redirect-flow-performing_redirect-requirement
+				$message = sprintf(
+					'You have chosen the payment method "Bank transfer". To complete your payment, please transfer the amount to the payment service provider (%1$s).
+
+					<strong>Account holder:</strong> %2$s
+					<strong>Account IBAN:</strong> %3$s
+					<strong>Account BIC:</strong> %4$s
+					<strong>Amount:</strong> %5$s
+					<strong>Transaction reference:</strong> %6$s
+
+					<em>Please note: only payments with the mentioned transaction reference will be processed.</em>',
+					__( 'ING', 'pronamic_ideal' ),
+					'ING PSP',
+					'NL13INGB0005300060',
+					'INGBNL2A',
+					Pronamic_WP_Util::format_price( $payment->get_amount(), $payment->get_currency() ),
+					$order->transactions[0]->payment_method_details->reference
+				);
+
+				$payment->set_meta( 'payment_redirect_message', $message );
+			}
+
+			if ( isset( $order->transactions[0]->payment_url ) ) {
+				$action_url = $order->transactions[0]->payment_url;
+			}
+
+			$payment->set_action_url( $action_url );
 		} else {
 			$this->error = $this->client->get_error();
 		}
