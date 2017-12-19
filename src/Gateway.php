@@ -59,8 +59,12 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 			$groups[] = array(
 				'options' => $result,
 			);
-		} else {
-			$this->error = $this->client->get_error();
+		}
+
+		$error = $this->client->get_error();
+
+		if ( is_wp_error( $error ) ) {
+			$this->error = $error;
 		}
 
 		return $groups;
@@ -191,8 +195,12 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 			}
 
 			$payment->set_action_url( $action_url );
-		} else {
-			$this->error = $this->client->get_error();
+		}
+
+		$error = $this->client->get_error();
+
+		if ( is_wp_error( $error ) ) {
+			$this->error = $error;
 		}
 	}
 
@@ -220,8 +228,12 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 					$payment->set_consumer_iban( $details->consumer_iban );
 				}
 			}
-		} else {
-			$this->error = $this->client->get_error();
+		}
+
+		$error = $this->client->get_error();
+
+		if ( is_wp_error( $error ) ) {
+			$this->error = $error;
 		}
 	}
 }
