@@ -93,6 +93,8 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods {
 				return self::CREDIT_CARD;
 			case Pronamic_WP_Pay_PaymentMethods::IDEAL:
 				return self::IDEAL;
+			case Pronamic_WP_Pay_PaymentMethods::PAYCONIQ:
+				return self::PAYCONIQ;
 			case Pronamic_WP_Pay_PaymentMethods::PAYPAL:
 				return self::PAYPAL;
 			case Pronamic_WP_Pay_PaymentMethods::SOFORT:

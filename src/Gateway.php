@@ -91,7 +91,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 	 * @see Pronamic_WP_Pay_Gateway::get_payment_methods()
 	 */
 	public function get_payment_methods() {
-		return $this->get_supported_payment_methods();
+		return array( array( 'options' => $this->get_supported_payment_methods() ) );
 	}
 
 	/**
@@ -105,6 +105,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 			Pronamic_WP_Pay_PaymentMethods::BANK_TRANSFER,
 			Pronamic_WP_Pay_PaymentMethods::CREDIT_CARD,
 			Pronamic_WP_Pay_PaymentMethods::IDEAL,
+			Pronamic_WP_Pay_PaymentMethods::PAYCONIQ,
 			Pronamic_WP_Pay_PaymentMethods::PAYPAL,
 			Pronamic_WP_Pay_PaymentMethods::SOFORT,
 		);
