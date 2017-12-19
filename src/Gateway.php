@@ -167,13 +167,13 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 				$message = sprintf(
 					__( 'You have chosen the payment method "Bank transfer". To complete your payment, please transfer the amount to the payment service provider (%1$s).
 
-					<strong>Account holder:</strong> %2$s
-					<strong>Account IBAN:</strong> %3$s
-					<strong>Account BIC:</strong> %4$s
-					<strong>Amount:</strong> %5$s
-					<strong>Transaction reference:</strong> %6$s
+<strong>Account holder:</strong> %2$s
+<strong>Account IBAN:</strong> %3$s
+<strong>Account BIC:</strong> %4$s
+<strong>Amount:</strong> %5$s
+<strong>Transaction reference:</strong> %6$s
 
-					<em>Please note: only payments with the mentioned transaction reference can be processed.</em>', 'pronamic_ideal' ),
+<em>Please note: only payments with the mentioned transaction reference can be processed.</em>', 'pronamic_ideal' ),
 					__( 'ING', 'pronamic_ideal' ),
 					'ING PSP',
 					'NL13INGB0005300060',
