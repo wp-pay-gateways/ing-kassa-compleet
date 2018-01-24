@@ -1,4 +1,5 @@
 <?php
+use Pronamic\WordPress\Pay\Plugin;
 
 /**
  * Title: ING Kassa Compleet listener
@@ -21,7 +22,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Listener implements Pronamic_Pa
 			if ( is_object( $data ) && isset( $data->order_id ) ) {
 				$payment = get_pronamic_payment_by_transaction_id( $data->order_id );
 
-				Pronamic_WP_Pay_Plugin::update_payment( $payment, false );
+				Plugin::update_payment( $payment, false );
 			}
 		}
 	}

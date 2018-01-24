@@ -1,4 +1,5 @@
 <?php
+use Pronamic\WordPress\Pay\Util;
 
 /**
  * Title: ING Kassa Compleet
@@ -183,7 +184,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 					'ING PSP',
 					'NL13INGB0005300060',
 					'INGBNL2A',
-					Pronamic_WP_Util::format_price( $payment->get_amount(), $payment->get_currency() ),
+					Util::format_price( $payment->get_amount(), $payment->get_currency() ),
 					$order->transactions[0]->payment_method_details->reference
 				);
 
