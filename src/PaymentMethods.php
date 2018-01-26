@@ -1,5 +1,9 @@
 <?php
 
+namespace Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet;
+
+use Pronamic\WordPress\Pay\Core\PaymentMethods as Core_PaymentMethods;
+
 /**
  * Title: ING Kassa Compleet payment methods
  * Description:
@@ -10,7 +14,7 @@
  * @version 1.0.6
  * @since 1.0.0
  */
-class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods {
+class PaymentMethods {
 	/**
 	 * Constant for the Bancontact method.
 	 *
@@ -80,24 +84,26 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods {
 	 * Transform WordPress payment method to ING Kassa Compleet method.
 	 *
 	 * @since 1.0.5
+	 *
 	 * @param string $method
+	 *
 	 * @return string
 	 */
 	public static function transform( $payment_method ) {
 		switch ( $payment_method ) {
-			case Pronamic_WP_Pay_PaymentMethods::BANCONTACT:
+			case Core_PaymentMethods::BANCONTACT:
 				return self::BANCONTACT;
-			case Pronamic_WP_Pay_PaymentMethods::BANK_TRANSFER:
+			case Core_PaymentMethods::BANK_TRANSFER:
 				return self::BANK_TRANSFER;
-			case Pronamic_WP_Pay_PaymentMethods::CREDIT_CARD:
+			case Core_PaymentMethods::CREDIT_CARD:
 				return self::CREDIT_CARD;
-			case Pronamic_WP_Pay_PaymentMethods::IDEAL:
+			case Core_PaymentMethods::IDEAL:
 				return self::IDEAL;
-			case Pronamic_WP_Pay_PaymentMethods::PAYCONIQ:
+			case Core_PaymentMethods::PAYCONIQ:
 				return self::PAYCONIQ;
-			case Pronamic_WP_Pay_PaymentMethods::PAYPAL:
+			case Core_PaymentMethods::PAYPAL:
 				return self::PAYPAL;
-			case Pronamic_WP_Pay_PaymentMethods::SOFORT:
+			case Core_PaymentMethods::SOFORT:
 				return self::SOFORT;
 			default:
 				return null;

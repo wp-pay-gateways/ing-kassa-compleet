@@ -1,4 +1,11 @@
 <?php
+use Pronamic\WordPress\Pay\Core\Gateway;
+use Pronamic\WordPress\Pay\Core\PaymentMethods;
+use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\Client;
+use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\Config;
+use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\OrderRequest;
+use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\PaymentMethods;
+use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\Statuses;
 use Pronamic\WordPress\Pay\Util;
 
 /**
@@ -11,11 +18,11 @@ use Pronamic\WordPress\Pay\Util;
  * @version 1.0.7
  * @since 1.0.0
  */
-class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay_Gateway {
+class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Gateway {
 	/**
 	 * The ING Kassa Compleet client object
 	 *
-	 * @var Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Client
+	 * @var Client
 	 */
 	private $client;
 
@@ -24,9 +31,9 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 	/**
 	 * Constructs and initializes an ING Kassa Compleet gateway
 	 *
-	 * @param Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Config $config
+	 * @param Config $config
 	 */
-	public function __construct( Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Config $config ) {
+	public function __construct( Config $config ) {
 		parent::__construct( $config );
 
 		$this->supports = array(
@@ -36,12 +43,12 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 			'recurring',
 		);
 
-		$this->set_method( Pronamic_WP_Pay_Gateway::METHOD_HTTP_REDIRECT );
+		$this->set_method( Gateway::METHOD_HTTP_REDIRECT );
 		$this->set_has_feedback( true );
 		$this->set_amount_minimum( 0.01 );
 
 		// Client
-		$this->client = new Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Client( $config->api_key );
+		$this->client = new Client( $config->api_key );
 	}
 
 	/////////////////////////////////////////////////
@@ -76,7 +83,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 	public function get_issuer_field() {
 		$payment_method = $this->get_payment_method();
 
-		if ( null === $payment_method || Pronamic_WP_Pay_PaymentMethods::IDEAL === $payment_method ) {
+		if ( null === $payment_method || PaymentMethods::IDEAL === $payment_method ) {
 			return array(
 				'id'       => 'pronamic_ideal_issuer_id',
 				'name'     => 'pronamic_ideal_issuer_id',
@@ -106,13 +113,13 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 	 */
 	public function get_supported_payment_methods() {
 		return array(
-			Pronamic_WP_Pay_PaymentMethods::BANCONTACT,
-			Pronamic_WP_Pay_PaymentMethods::BANK_TRANSFER,
-			Pronamic_WP_Pay_PaymentMethods::CREDIT_CARD,
-			Pronamic_WP_Pay_PaymentMethods::IDEAL,
-			Pronamic_WP_Pay_PaymentMethods::PAYCONIQ,
-			Pronamic_WP_Pay_PaymentMethods::PAYPAL,
-			Pronamic_WP_Pay_PaymentMethods::SOFORT,
+			PaymentMethods::BANCONTACT,
+			PaymentMethods::BANK_TRANSFER,
+			PaymentMethods::CREDIT_CARD,
+			PaymentMethods::IDEAL,
+			PaymentMethods::PAYCONIQ,
+			PaymentMethods::PAYPAL,
+			PaymentMethods::SOFORT,
 		);
 	}
 
@@ -133,7 +140,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 	 * @see Pronamic_WP_Pay_Gateway::start()
 	 */
 	public function start( Pronamic_Pay_Payment $payment ) {
-		$request = new Pronamic_WP_Pay_Gateways_ING_KassaCompleet_OrderRequest();
+		$request = new OrderRequest();
 
 		$request->currency          = $payment->get_currency();
 		$request->amount            = $payment->get_amount();
@@ -147,14 +154,14 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 		$payment_method = $payment->get_method();
 
 		if ( empty( $payment_method ) && ! empty( $issuer ) ) {
-			$payment_method = Pronamic_WP_Pay_PaymentMethods::IDEAL;
+			$payment_method = PaymentMethods::IDEAL;
 		}
 
-		if ( Pronamic_WP_Pay_PaymentMethods::IDEAL === $payment_method ) {
+		if ( PaymentMethods::IDEAL === $payment_method ) {
 			$request->issuer = $issuer;
 		}
 
-		$request->method = Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::transform( $payment_method );
+		$request->method = PaymentMethods::transform( $payment_method );
 
 		$order = $this->client->create_order( $request );
 
@@ -166,7 +173,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 				'key'              => $payment->key,
 			), home_url( '/' ) );
 
-			if ( Pronamic_WP_Pay_PaymentMethods::BANK_TRANSFER === $payment_method ) {
+			if ( PaymentMethods::BANK_TRANSFER === $payment_method ) {
 				// Set payment redirect message with received transaction reference.
 				// @see https://s3-eu-west-1.amazonaws.com/wl1-apidocs/api.kassacompleet.nl/index.html#payment-methods-without-the-redirect-flow-performing_redirect-requirement
 				$message = sprintf(
@@ -216,7 +223,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Pronamic_WP_Pay
 		$order = $this->client->get_order( $payment->get_transaction_id() );
 
 		if ( $order ) {
-			$payment->set_status( Pronamic_WP_Pay_ING_KassaCompleet_Statuses::transform( $order->status ) );
+			$payment->set_status( Statuses::transform( $order->status ) );
 
 			if ( isset( $order->transactions[0]->payment_method_details ) ) {
 				$details = $order->transactions[0]->payment_method_details;

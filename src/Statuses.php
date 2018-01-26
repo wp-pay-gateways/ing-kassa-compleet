@@ -1,5 +1,9 @@
 <?php
 
+namespace Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet;
+
+use Pronamic\WordPress\Pay\Core\Statuses as Core_Statuses;
+
 /**
  * Title: ING Kassa Compleet statuses constants
  * Description:
@@ -10,7 +14,7 @@
  * @version 1.0.5
  * @since 1.0.0
  */
-class Pronamic_WP_Pay_ING_KassaCompleet_Statuses {
+class Statuses {
 	/**
 	 * Completed
 	 *
@@ -61,22 +65,24 @@ class Pronamic_WP_Pay_ING_KassaCompleet_Statuses {
 	 * Transform an ING Kassa Compleet status to a global status
 	 *
 	 * @param string $status
+	 *
+	 * @return string|null
 	 */
 	public static function transform( $status ) {
 		switch ( $status ) {
 			case self::ERROR:
-				return Pronamic_WP_Pay_Statuses::FAILURE;
+				return Core_Statuses::FAILURE;
 
 			case self::PENDING:
 			case self::PROCESSING:
-				return Pronamic_WP_Pay_Statuses::OPEN;
+				return Core_Statuses::OPEN;
 
 			case self::CANCELLED:
-				return Pronamic_WP_Pay_Statuses::CANCELLED;
+				return Core_Statuses::CANCELLED;
 
 			case self::COMPLETED:
 			case self::SUCCESS:
-				return Pronamic_WP_Pay_Statuses::SUCCESS;
+				return Core_Statuses::SUCCESS;
 
 			default:
 				return null;

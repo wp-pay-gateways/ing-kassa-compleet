@@ -1,5 +1,9 @@
 <?php
 
+namespace Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet;
+
+use Pronamic\WordPress\Pay\Core\Util as Core_Util;
+
 /**
  * Title: ING Kassa Compleet order request
  * Description:
@@ -10,7 +14,7 @@
  * @version 1.0.0
  * @since 1.0.0
  */
-class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_OrderRequest {
+class OrderRequest {
 	/**
 	 * Amount in cents
 	 */
@@ -43,7 +47,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_OrderRequest {
 
 	public function get_array() {
 		$array = array(
-			'amount'       => Pronamic_WP_Pay_Util::amount_to_cents( $this->amount ),
+			'amount'       => Core_Util::amount_to_cents( $this->amount ),
 			'currency'     => $this->currency,
 			'description'  => $this->description,
 			'return_url'   => $this->return_url,
@@ -60,7 +64,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_OrderRequest {
 
 		// Add payment method details
 		switch ( $this->method ) {
-			case Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::IDEAL:
+			case PaymentMethods::IDEAL:
 				$payment_method['payment_method_details'] = array(
 					'issuer_id' => $this->issuer,
 				);

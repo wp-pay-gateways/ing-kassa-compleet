@@ -1,4 +1,6 @@
 <?php
+use Pronamic\WordPress\Pay\Core\PaymentMethods;
+use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\PaymentMethods;
 
 /**
  * Title: ING Kassa Compleet payment methods helper test
@@ -17,7 +19,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsTest extends PHPU
 	 * @dataProvider test_provider
 	 */
 	public function test_transform( $payment_method, $expected ) {
-		$payment_method = Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::transform( $payment_method );
+		$payment_method = PaymentMethods::transform( $payment_method );
 
 		$this->assertEquals( $expected, $payment_method );
 	}
@@ -29,13 +31,13 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsTest extends PHPU
 	 */
 	public function test_provider() {
 		return array(
-			array( Pronamic_WP_Pay_PaymentMethods::BANCONTACT, Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::BANCONTACT ),
-			array( Pronamic_WP_Pay_PaymentMethods::BANK_TRANSFER, Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::BANK_TRANSFER ),
-			array( Pronamic_WP_Pay_PaymentMethods::CREDIT_CARD, Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::CREDIT_CARD ),
-			array( Pronamic_WP_Pay_PaymentMethods::IDEAL, Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::IDEAL ),
-			array( Pronamic_WP_Pay_PaymentMethods::PAYCONIQ, Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::PAYCONIQ ),
-			array( Pronamic_WP_Pay_PaymentMethods::PAYPAL, Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::PAYPAL ),
-			array( Pronamic_WP_Pay_PaymentMethods::SOFORT, Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::SOFORT ),
+			array( PaymentMethods::BANCONTACT, PaymentMethods::BANCONTACT ),
+			array( PaymentMethods::BANK_TRANSFER, PaymentMethods::BANK_TRANSFER ),
+			array( PaymentMethods::CREDIT_CARD, PaymentMethods::CREDIT_CARD ),
+			array( PaymentMethods::IDEAL, PaymentMethods::IDEAL ),
+			array( PaymentMethods::PAYCONIQ, PaymentMethods::PAYCONIQ ),
+			array( PaymentMethods::PAYPAL, PaymentMethods::PAYPAL ),
+			array( PaymentMethods::SOFORT, PaymentMethods::SOFORT ),
 			array( 'not existing payment method', null ),
 		);
 	}

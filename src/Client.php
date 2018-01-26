@@ -1,4 +1,9 @@
 <?php
+namespace Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet;
+
+use Pronamic\WordPress\Pay\Core\XML\Security;
+use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\OrderRequest;
+use WP_Error;
 
 /**
  * Title: ING Kassa Compleet client
@@ -10,7 +15,7 @@
  * @version 1.0.7
  * @since 1.0.0
  */
-class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Client {
+class Client {
 	/**
 	 * ING Kasse Compleet API endpoint URL
 	 *
@@ -54,7 +59,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Client {
 	 *
 	 * @param string $endpoint
 	 * @param string $method
-	 * @param array  $data
+	 * @param array $data
 	 */
 	private function send_request( $endpoint, $method = 'POST', array $data = array() ) {
 		$url = self::API_URL . $endpoint;
@@ -80,7 +85,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Client {
 
 	/////////////////////////////////////////////////
 
-	public function create_order( Pronamic_WP_Pay_Gateways_ING_KassaCompleet_OrderRequest $request ) {
+	public function create_order( OrderRequest $request ) {
 		$result = null;
 
 		$data = $request->get_array();
@@ -164,8 +169,8 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Client {
 				$issuers = array();
 
 				foreach ( $result as $issuer ) {
-					$id   = Pronamic_WP_Pay_XML_Security::filter( $issuer->id );
-					$name = Pronamic_WP_Pay_XML_Security::filter( $issuer->name );
+					$id   = Security::filter( $issuer->id );
+					$name = Security::filter( $issuer->name );
 
 					$issuers[ $id ] = $name;
 				}

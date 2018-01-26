@@ -24,7 +24,9 @@
 		"source": "https://github.com/wp-pay-gateways/ing-kassa-compleet"
 	},
 	"autoload": {
-		"classmap": ["src/"]
+		"psr-4": {
+			"Pronamic\\WordPress\\Pay\\Gateways\\ING_KassaCompleet\\": "src/"
+		}
 	},
 	"config": {
 		"platform": {
