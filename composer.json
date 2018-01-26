@@ -3,7 +3,7 @@
 	"description": "ING Kassa Compleet driver for the WordPress payment processing library.",
 	"keywords": ["wordpress", "wp", "pay", "ing", "kassa", "compleet", "gateway", "pronamic"],
 	"homepage": "http://www.wp-pay.org/gateways/ing-kassa-compleet/",
-	"license": "GPL",
+	"license": "GPL-3.0-or-later" ,
 	"authors": [
 		{
 			"name": "Pronamic",
