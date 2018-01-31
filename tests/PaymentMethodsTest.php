@@ -1,6 +1,7 @@
 <?php
+
 use Pronamic\WordPress\Pay\Core\PaymentMethods;
-use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\PaymentMethods;
+use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\PaymentMethods as Methods;
 
 /**
  * Title: ING Kassa Compleet payment methods helper test
@@ -17,9 +18,12 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsTest extends PHPU
 	 * Test transform.
 	 *
 	 * @dataProvider test_provider
+	 *
+	 * @param $payment_method
+	 * @param $expected
 	 */
 	public function test_transform( $payment_method, $expected ) {
-		$payment_method = PaymentMethods::transform( $payment_method );
+		$payment_method = Methods::transform( $payment_method );
 
 		$this->assertEquals( $expected, $payment_method );
 	}
@@ -31,13 +35,13 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsTest extends PHPU
 	 */
 	public function test_provider() {
 		return array(
-			array( PaymentMethods::BANCONTACT, PaymentMethods::BANCONTACT ),
-			array( PaymentMethods::BANK_TRANSFER, PaymentMethods::BANK_TRANSFER ),
-			array( PaymentMethods::CREDIT_CARD, PaymentMethods::CREDIT_CARD ),
-			array( PaymentMethods::IDEAL, PaymentMethods::IDEAL ),
-			array( PaymentMethods::PAYCONIQ, PaymentMethods::PAYCONIQ ),
-			array( PaymentMethods::PAYPAL, PaymentMethods::PAYPAL ),
-			array( PaymentMethods::SOFORT, PaymentMethods::SOFORT ),
+			array( Methods::BANCONTACT, PaymentMethods::BANCONTACT ),
+			array( Methods::BANK_TRANSFER, PaymentMethods::BANK_TRANSFER ),
+			array( Methods::CREDIT_CARD, PaymentMethods::CREDIT_CARD ),
+			array( Methods::IDEAL, PaymentMethods::IDEAL ),
+			array( Methods::PAYCONIQ, PaymentMethods::PAYCONIQ ),
+			array( Methods::PAYPAL, PaymentMethods::PAYPAL ),
+			array( Methods::SOFORT, PaymentMethods::SOFORT ),
 			array( 'not existing payment method', null ),
 		);
 	}
