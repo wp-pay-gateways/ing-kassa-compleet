@@ -1,11 +1,11 @@
 <?php
-use Pronamic\WordPress\Pay\Core\Gateway;
+
+namespace Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet;
+
+use Pronamic\WordPress\Pay\Core\Gateway as Core_Gateway;
 use Pronamic\WordPress\Pay\Core\PaymentMethods;
-use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\Client;
-use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\Config;
-use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\OrderRequest;
-use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\PaymentMethods;
-use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\Statuses;
+use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\PaymentMethods as Methods;
+use Pronamic\WordPress\Pay\Payments\Payment;
 use Pronamic\WordPress\Pay\Util;
 
 /**
@@ -14,20 +14,11 @@ use Pronamic\WordPress\Pay\Util;
  * Copyright: Copyright (c) 2005 - 2018
  * Company: Pronamic
  *
- * @author Reüel van der Steege
+ * @author  Reüel van der Steege
  * @version 1.0.7
- * @since 1.0.0
+ * @since   1.0.0
  */
-class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Gateway {
-	/**
-	 * The ING Kassa Compleet client object
-	 *
-	 * @var Client
-	 */
-	private $client;
-
-	/////////////////////////////////////////////////
-
+class Gateway extends Core_Gateway {
 	/**
 	 * Constructs and initializes an ING Kassa Compleet gateway
 	 *
@@ -139,7 +130,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Gateway {
 	 *
 	 * @see Pronamic_WP_Pay_Gateway::start()
 	 */
-	public function start( Pronamic_Pay_Payment $payment ) {
+	public function start( Payment $payment ) {
 		$request = new OrderRequest();
 
 		$request->currency          = $payment->get_currency();
@@ -161,7 +152,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Gateway {
 			$request->issuer = $issuer;
 		}
 
-		$request->method = PaymentMethods::transform( $payment_method );
+		$request->method = Methods::transform( $payment_method );
 
 		$order = $this->client->create_order( $request );
 
@@ -217,9 +208,9 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway extends Gateway {
 	/**
 	 * Update status of the specified payment
 	 *
-	 * @param Pronamic_Pay_Payment $payment
+	 * @param Payment $payment
 	 */
-	public function update_status( Pronamic_Pay_Payment $payment ) {
+	public function update_status( Payment $payment ) {
 		$order = $this->client->get_order( $payment->get_transaction_id() );
 
 		if ( $order ) {

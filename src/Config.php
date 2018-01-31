@@ -18,6 +18,6 @@ class Config extends GatewayConfig {
 	public $api_key;
 
 	public function get_gateway_class() {
-		return 'Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway';
+		return __NAMESPACE__ . '\Gateway';
 	}
 }

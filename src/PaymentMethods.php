@@ -93,18 +93,25 @@ class PaymentMethods {
 		switch ( $payment_method ) {
 			case Core_PaymentMethods::BANCONTACT:
 				return self::BANCONTACT;
+
 			case Core_PaymentMethods::BANK_TRANSFER:
 				return self::BANK_TRANSFER;
+
 			case Core_PaymentMethods::CREDIT_CARD:
 				return self::CREDIT_CARD;
+
 			case Core_PaymentMethods::IDEAL:
 				return self::IDEAL;
+
 			case Core_PaymentMethods::PAYCONIQ:
 				return self::PAYCONIQ;
+
 			case Core_PaymentMethods::PAYPAL:
 				return self::PAYPAL;
+
 			case Core_PaymentMethods::SOFORT:
 				return self::SOFORT;
+
 			default:
 				return null;
 		}
