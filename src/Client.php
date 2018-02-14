@@ -35,6 +35,15 @@ class Client {
 	//////////////////////////////////////////////////
 
 	/**
+	 * Error
+	 *
+	 * @var WP_Error
+	 */
+	private $error;
+
+	//////////////////////////////////////////////////
+
+	/**
 	 * Constructs and initalize an ING Kassa Compleet client object
 	 */
 	public function __construct( $api_key ) {

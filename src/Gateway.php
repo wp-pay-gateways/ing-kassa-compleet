@@ -211,21 +211,29 @@ class Gateway extends Core_Gateway {
 	 * @param Payment $payment
 	 */
 	public function update_status( Payment $payment ) {
-		$order = $this->client->get_order( $payment->get_transaction_id() );
+		$transaction_id = $payment->get_transaction_id();
 
-		if ( $order ) {
-			$payment->set_status( Statuses::transform( $order->status ) );
+		if ( empty( $transaction_id ) ) {
+			return;
+		}
 
-			if ( isset( $order->transactions[0]->payment_method_details ) ) {
-				$details = $order->transactions[0]->payment_method_details;
+		$order = $this->client->get_order( $transaction_id );
 
-				if ( isset( $details->consumer_name ) ) {
-					$payment->set_consumer_name( $details->consumer_name );
-				}
+		if ( ! is_object( $order ) ) {
+			return;
+		}
 
-				if ( isset( $details->consumer_iban ) ) {
-					$payment->set_consumer_iban( $details->consumer_iban );
-				}
+		$payment->set_status( Statuses::transform( $order->status ) );
+
+		if ( isset( $order->transactions[0]->payment_method_details ) ) {
+			$details = $order->transactions[0]->payment_method_details;
+
+			if ( isset( $details->consumer_name ) ) {
+				$payment->set_consumer_name( $details->consumer_name );
+			}
+
+			if ( isset( $details->consumer_iban ) ) {
+				$payment->set_consumer_iban( $details->consumer_iban );
 			}
 		}
 
