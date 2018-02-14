@@ -19,13 +19,13 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsTest extends PHPU
 	 *
 	 * @dataProvider test_provider
 	 *
-	 * @param $payment_method
+	 * @param $method
 	 * @param $expected
 	 */
 	public function test_transform( $payment_method, $expected ) {
-		$payment_method = Methods::transform( $payment_method );
+		$ing_method = Methods::transform( $payment_method );
 
-		$this->assertEquals( $expected, $payment_method );
+		$this->assertEquals( $expected, $ing_method );
 	}
 
 	/**
@@ -35,13 +35,13 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsTest extends PHPU
 	 */
 	public function test_provider() {
 		return array(
-			array( Methods::BANCONTACT, PaymentMethods::BANCONTACT ),
-			array( Methods::BANK_TRANSFER, PaymentMethods::BANK_TRANSFER ),
-			array( Methods::CREDIT_CARD, PaymentMethods::CREDIT_CARD ),
-			array( Methods::IDEAL, PaymentMethods::IDEAL ),
-			array( Methods::PAYCONIQ, PaymentMethods::PAYCONIQ ),
-			array( Methods::PAYPAL, PaymentMethods::PAYPAL ),
-			array( Methods::SOFORT, PaymentMethods::SOFORT ),
+			array( PaymentMethods::BANCONTACT, Methods::BANCONTACT ),
+			array( PaymentMethods::BANK_TRANSFER, Methods::BANK_TRANSFER ),
+			array( PaymentMethods::CREDIT_CARD, Methods::CREDIT_CARD ),
+			array( PaymentMethods::IDEAL, Methods::IDEAL ),
+			array( PaymentMethods::PAYCONIQ, Methods::PAYCONIQ ),
+			array( PaymentMethods::PAYPAL, Methods::PAYPAL ),
+			array( PaymentMethods::SOFORT, Methods::SOFORT ),
 			array( 'not existing payment method', null ),
 		);
 	}
