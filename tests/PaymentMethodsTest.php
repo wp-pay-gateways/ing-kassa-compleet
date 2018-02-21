@@ -19,7 +19,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsTest extends PHPU
 	 *
 	 * @dataProvider test_provider
 	 *
-	 * @param $method
+	 * @param $payment_method
 	 * @param $expected
 	 */
 	public function test_transform( $payment_method, $expected ) {
