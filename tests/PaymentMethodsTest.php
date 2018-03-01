@@ -1,7 +1,8 @@
 <?php
 
-use Pronamic\WordPress\Pay\Core\PaymentMethods;
-use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\PaymentMethods as Methods;
+namespace Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet;
+
+use Pronamic\WordPress\Pay\Core\PaymentMethods as CorePaymentMethods;
 
 /**
  * Title: ING Kassa Compleet payment methods helper test
@@ -13,7 +14,7 @@ use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\PaymentMethods as Methods;
  * @version 1.0.6
  * @since 1.0.5
  */
-class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsTest extends PHPUnit_Framework_TestCase {
+class PaymentMethodsTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Test transform.
 	 *
@@ -23,7 +24,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsTest extends PHPU
 	 * @param $expected
 	 */
 	public function test_transform( $payment_method, $expected ) {
-		$ing_method = Methods::transform( $payment_method );
+		$ing_method = PaymentMethods::transform( $payment_method );
 
 		$this->assertEquals( $expected, $ing_method );
 	}
@@ -35,13 +36,13 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsTest extends PHPU
 	 */
 	public function test_provider() {
 		return array(
-			array( PaymentMethods::BANCONTACT, Methods::BANCONTACT ),
-			array( PaymentMethods::BANK_TRANSFER, Methods::BANK_TRANSFER ),
-			array( PaymentMethods::CREDIT_CARD, Methods::CREDIT_CARD ),
-			array( PaymentMethods::IDEAL, Methods::IDEAL ),
-			array( PaymentMethods::PAYCONIQ, Methods::PAYCONIQ ),
-			array( PaymentMethods::PAYPAL, Methods::PAYPAL ),
-			array( PaymentMethods::SOFORT, Methods::SOFORT ),
+			array( CorePaymentMethods::BANCONTACT, PaymentMethods::BANCONTACT ),
+			array( CorePaymentMethods::BANK_TRANSFER, PaymentMethods::BANK_TRANSFER ),
+			array( CorePaymentMethods::CREDIT_CARD, PaymentMethods::CREDIT_CARD ),
+			array( CorePaymentMethods::IDEAL, PaymentMethods::IDEAL ),
+			array( CorePaymentMethods::PAYCONIQ, PaymentMethods::PAYCONIQ ),
+			array( CorePaymentMethods::PAYPAL, PaymentMethods::PAYPAL ),
+			array( CorePaymentMethods::SOFORT, PaymentMethods::SOFORT ),
 			array( 'not existing payment method', null ),
 		);
 	}
