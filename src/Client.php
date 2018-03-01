@@ -23,16 +23,12 @@ class Client {
 	 */
 	const API_URL = 'https://api.kassacompleet.nl/v1/';
 
-	//////////////////////////////////////////////////
-
 	/**
 	 * API Key
 	 *
 	 * @var string
 	 */
 	private $api_key;
-
-	//////////////////////////////////////////////////
 
 	/**
 	 * Error
@@ -41,16 +37,12 @@ class Client {
 	 */
 	private $error;
 
-	//////////////////////////////////////////////////
-
 	/**
 	 * Constructs and initalize an ING Kassa Compleet client object
 	 */
 	public function __construct( $api_key ) {
 		$this->api_key = $api_key;
 	}
-
-	//////////////////////////////////////////////////
 
 	/**
 	 * Error
@@ -60,8 +52,6 @@ class Client {
 	public function get_error() {
 		return $this->error;
 	}
-
-	//////////////////////////////////////////////////
 
 	/**
 	 * Send request with the specified action and parameters
@@ -153,8 +143,6 @@ class Client {
 
 		return $result;
 	}
-
-	//////////////////////////////////////////////////
 
 	/**
 	 * Get issuers
