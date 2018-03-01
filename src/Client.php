@@ -82,8 +82,6 @@ class Client {
 		return $return;
 	}
 
-	/////////////////////////////////////////////////
-
 	public function create_order( OrderRequest $request ) {
 		$result = null;
 

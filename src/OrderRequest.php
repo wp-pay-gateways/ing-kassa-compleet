@@ -37,13 +37,9 @@ class OrderRequest {
 
 	public $return_url;
 
-	/////////////////////////////////////////////////
-
 	public function __construct() {
 
 	}
-
-	/////////////////////////////////////////////////
 
 	public function get_array() {
 		$array = array(

@@ -59,8 +59,6 @@ class Statuses {
 	 */
 	const SUCCESS = 'Success';
 
-	/////////////////////////////////////////////////
-
 	/**
 	 * Transform an ING Kassa Compleet status to a global status
 	 *

@@ -78,8 +78,6 @@ class PaymentMethods {
 	 */
 	const SOFORT = 'sofort';
 
-	/////////////////////////////////////////////////
-
 	/**
 	 * Transform WordPress payment method to ING Kassa Compleet method.
 	 *

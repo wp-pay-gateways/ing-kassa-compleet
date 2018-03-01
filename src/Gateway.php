@@ -42,8 +42,6 @@ class Gateway extends Core_Gateway {
 		$this->client = new Client( $config->api_key );
 	}
 
-	/////////////////////////////////////////////////
-
 	/**
 	 * Get issuers
 	 *
@@ -69,8 +67,6 @@ class Gateway extends Core_Gateway {
 		return $groups;
 	}
 
-	/////////////////////////////////////////////////
-
 	public function get_issuer_field() {
 		$payment_method = $this->get_payment_method();
 
@@ -85,8 +81,6 @@ class Gateway extends Core_Gateway {
 			);
 		}
 	}
-
-	/////////////////////////////////////////////////
 
 	/**
 	 * Get payment methods
@@ -122,8 +116,6 @@ class Gateway extends Core_Gateway {
 	public function payment_method_is_required() {
 		return true;
 	}
-
-	/////////////////////////////////////////////////
 
 	/**
 	 * Start
@@ -202,8 +194,6 @@ class Gateway extends Core_Gateway {
 			$this->error = $error;
 		}
 	}
-
-	/////////////////////////////////////////////////
 
 	/**
 	 * Update status of the specified payment
