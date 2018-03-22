@@ -25,7 +25,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Pronamic\\WordPress\\Pay\\Gateways\\ING_KassaCompleet\\": "src/"
+			"Pronamic\\WordPress\\Pay\\Gateways\\ING\\KassaCompleet\\": "src/"
 		}
 	},
 	"config": {

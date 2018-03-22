@@ -1,8 +1,8 @@
 <?php
-namespace Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet;
+namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
 use Pronamic\WordPress\Pay\Core\XML\Security;
-use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\OrderRequest;
+use Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet\OrderRequest;
 use WP_Error;
 
 /**

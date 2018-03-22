@@ -1,10 +1,10 @@
 <?php
 
-namespace Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet;
+namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
 use Pronamic\WordPress\Pay\Core\Gateway as Core_Gateway;
 use Pronamic\WordPress\Pay\Core\PaymentMethods;
-use Pronamic\WordPress\Pay\Gateways\ING_KassaCompleet\PaymentMethods as Methods;
+use Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet\PaymentMethods as Methods;
 use Pronamic\WordPress\Pay\Payments\Payment;
 use Pronamic\WordPress\Pay\Util;
 
