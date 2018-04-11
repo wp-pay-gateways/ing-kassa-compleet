@@ -29,9 +29,6 @@ class Gateway extends Core_Gateway {
 
 		$this->supports = array(
 			'payment_status_request',
-			'recurring_direct_debit',
-			'recurring_credit_card',
-			'recurring',
 		);
 
 		$this->set_method( Gateway::METHOD_HTTP_REDIRECT );
