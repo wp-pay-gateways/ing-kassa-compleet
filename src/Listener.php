@@ -28,6 +28,20 @@ class Listener {
 		if ( is_object( $data ) && isset( $data->order_id ) ) {
 			$payment = get_pronamic_payment_by_transaction_id( $data->order_id );
 
+			if ( null === $payment ) {
+				return;
+			}
+
+			// Add note.
+			$note = sprintf(
+				/* translators: %s: ING */
+				__( 'Webhook requested by %s.', 'pronamic_ideal' ),
+				__( 'ING', 'pronamic_ideal' )
+			);
+
+			$payment->add_note( $note );
+
+			// Update payment.
 			Plugin::update_payment( $payment, false );
 		}
 	}
