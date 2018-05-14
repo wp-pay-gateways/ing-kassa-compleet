@@ -1,16 +1,20 @@
 <?php
 
+namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
+
+use Pronamic\WordPress\Pay\Gateways\Common\AbstractIntegration;
+
 /**
  * Title: ING Kassa Compleet integration
  * Description:
- * Copyright: Copyright (c) 2005 - 2017
+ * Copyright: Copyright (c) 2005 - 2018
  * Company: Pronamic
  *
- * @author Reüel van der Steege
- * @version 1.0.3
- * @since 1.0.0
+ * @author  Reüel van der Steege
+ * @version 2.0.0
+ * @since   1.0.0
  */
-class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Integration extends Pronamic_WP_Pay_Gateways_AbstractIntegration {
+class Integration extends AbstractIntegration {
 	public function __construct() {
 		$this->id            = 'ing-kassa-compleet';
 		$this->name          = 'ING Kassa Compleet';
@@ -19,7 +23,7 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Integration extends Pronamic_WP
 		$this->dashboard_url = 'https://portal.kassacompleet.nl/';
 
 		// Actions
-		$function = array( 'Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Listener', 'listen' );
+		$function = array( __NAMESPACE__ . '\Listener', 'listen' );
 
 		if ( ! has_action( 'wp_loaded', $function ) ) {
 			add_action( 'wp_loaded', $function );
@@ -27,11 +31,11 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Integration extends Pronamic_WP
 	}
 
 	public function get_config_factory_class() {
-		return 'Pronamic_WP_Pay_Gateways_ING_KassaCompleet_ConfigFactory';
+		return __NAMESPACE__ . '\ConfigFactory';
 	}
 
 	public function get_settings_class() {
-		return 'Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Settings';
+		return __NAMESPACE__ . '\Settings';
 	}
 
 	/**

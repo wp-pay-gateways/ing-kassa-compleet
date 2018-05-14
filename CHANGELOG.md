@@ -7,6 +7,9 @@ This projects adheres to [Semantic Versioning](http://semver.org/) and [Keep a C
 ## [Unreleased][unreleased]
 -
 
+## [2.0.0] - 2018-05-14
+- Switched to PHP namespaces.
+
 ## [1.0.7] - 2017-05-01
 - Fixed issuer not set if payment method is not empty.
 - Improved error handling for inactive payment methods.
@@ -42,7 +45,8 @@ This projects adheres to [Semantic Versioning](http://semver.org/) and [Keep a C
 ## 1.0.0 - 2016-02-01
 - First release.
 
-[unreleased]: https://github.com/wp-pay-gateways/ing-kassa-compleet/compare/1.0.7...HEAD
+[unreleased]: https://github.com/wp-pay-gateways/ing-kassa-compleet/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/wp-pay-gateways/ing-kassa-compleet/compare/1.0.7...2.0.0
 [1.0.7]: https://github.com/wp-pay-gateways/ing-kassa-compleet/compare/1.0.6...1.0.7
 [1.0.6]: https://github.com/wp-pay-gateways/ing-kassa-compleet/compare/1.0.5...1.0.6
 [1.0.5]: https://github.com/wp-pay-gateways/ing-kassa-compleet/compare/1.0.4...1.0.5

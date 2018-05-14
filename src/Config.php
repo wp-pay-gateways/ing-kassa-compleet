@@ -1,19 +1,19 @@
 <?php
 
+namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
+
+use Pronamic\WordPress\Pay\Core\GatewayConfig;
+
 /**
  * Title: ING Kassa Compleet config
  * Description:
- * Copyright: Copyright (c) 2005 - 2017
+ * Copyright: Copyright (c) 2005 - 2018
  * Company: Pronamic
  *
- * @author Reüel van der Steege
- * @version 1.0.0
- * @since 1.0.0
+ * @author  Reüel van der Steege
+ * @version 2.0.0
+ * @since   1.0.0
  */
-class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Config extends Pronamic_WP_Pay_GatewayConfig {
+class Config extends GatewayConfig {
 	public $api_key;
-
-	public function get_gateway_class() {
-		return 'Pronamic_WP_Pay_Gateways_ING_KassaCompleet_Gateway';
-	}
 }

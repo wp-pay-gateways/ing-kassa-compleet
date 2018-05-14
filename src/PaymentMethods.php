@@ -1,16 +1,20 @@
 <?php
 
+namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
+
+use Pronamic\WordPress\Pay\Core\PaymentMethods as Core_PaymentMethods;
+
 /**
  * Title: ING Kassa Compleet payment methods
  * Description:
- * Copyright: Copyright (c) 2005 - 2017
+ * Copyright: Copyright (c) 2005 - 2018
  * Company: Pronamic
  *
- * @author Remco Tolsma
- * @version 1.0.6
- * @since 1.0.0
+ * @author  Remco Tolsma
+ * @version 2.0.0
+ * @since   1.0.0
  */
-class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods {
+class PaymentMethods {
 	/**
 	 * Constant for the Bancontact method.
 	 *
@@ -52,6 +56,21 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods {
 	const IDEAL = 'ideal';
 
 	/**
+	 * Constant for the Payconiq method.
+	 *
+	 * @var string
+	 */
+	const PAYCONIQ = 'payconiq';
+
+	/**
+	 * Constant for the PayPal method.
+	 *
+	 * @see https://plugins.trac.wordpress.org/browser/ing-psp/tags/1.2/ing-php/src/Order/Transaction/PaymentMethod.php#L21
+	 * @var string
+	 */
+	const PAYPAL = 'paypal';
+
+	/**
 	 * Constant for the SOFORT method.
 	 *
 	 * @see https://plugins.trac.wordpress.org/browser/ing-psp/tags/1.0/ing-php/src/Order/Transaction/PaymentMethod.php#L11
@@ -59,28 +78,39 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods {
 	 */
 	const SOFORT = 'sofort';
 
-	/////////////////////////////////////////////////
-
 	/**
 	 * Transform WordPress payment method to ING Kassa Compleet method.
 	 *
 	 * @since 1.0.5
+	 *
 	 * @param string $method
+	 *
 	 * @return string
 	 */
 	public static function transform( $payment_method ) {
 		switch ( $payment_method ) {
-			case Pronamic_WP_Pay_PaymentMethods::BANCONTACT :
+			case Core_PaymentMethods::BANCONTACT:
 				return self::BANCONTACT;
-			case Pronamic_WP_Pay_PaymentMethods::BANK_TRANSFER :
+
+			case Core_PaymentMethods::BANK_TRANSFER:
 				return self::BANK_TRANSFER;
-			case Pronamic_WP_Pay_PaymentMethods::CREDIT_CARD :
+
+			case Core_PaymentMethods::CREDIT_CARD:
 				return self::CREDIT_CARD;
-			case Pronamic_WP_Pay_PaymentMethods::IDEAL :
+
+			case Core_PaymentMethods::IDEAL:
 				return self::IDEAL;
-			case Pronamic_WP_Pay_PaymentMethods::SOFORT :
+
+			case Core_PaymentMethods::PAYCONIQ:
+				return self::PAYCONIQ;
+
+			case Core_PaymentMethods::PAYPAL:
+				return self::PAYPAL;
+
+			case Core_PaymentMethods::SOFORT:
 				return self::SOFORT;
-			default :
+
+			default:
 				return null;
 		}
 	}

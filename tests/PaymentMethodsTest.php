@@ -1,25 +1,32 @@
 <?php
 
+namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
+
+use Pronamic\WordPress\Pay\Core\PaymentMethods as CorePaymentMethods;
+
 /**
  * Title: ING Kassa Compleet payment methods helper test
  * Description:
- * Copyright: Copyright (c) 2005 - 2017
+ * Copyright: Copyright (c) 2005 - 2018
  * Company: Pronamic
  *
- * @author Remco Tolsma
- * @version 1.0.6
- * @since 1.0.5
+ * @author  Remco Tolsma
+ * @version 2.0.0
+ * @since   1.0.5
  */
-class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsTest extends PHPUnit_Framework_TestCase {
+class PaymentMethodsTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Test transform.
 	 *
 	 * @dataProvider test_provider
+	 *
+	 * @param $payment_method
+	 * @param $expected
 	 */
 	public function test_transform( $payment_method, $expected ) {
-		$payment_method = Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::transform( $payment_method );
+		$ing_method = PaymentMethods::transform( $payment_method );
 
-		$this->assertEquals( $expected, $payment_method );
+		$this->assertEquals( $expected, $ing_method );
 	}
 
 	/**
@@ -29,11 +36,13 @@ class Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethodsTest extends PHPU
 	 */
 	public function test_provider() {
 		return array(
-			array( Pronamic_WP_Pay_PaymentMethods::BANCONTACT, Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::BANCONTACT ),
-			array( Pronamic_WP_Pay_PaymentMethods::BANK_TRANSFER, Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::BANK_TRANSFER ),
-			array( Pronamic_WP_Pay_PaymentMethods::CREDIT_CARD, Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::CREDIT_CARD ),
-			array( Pronamic_WP_Pay_PaymentMethods::IDEAL, Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::IDEAL ),
-			array( Pronamic_WP_Pay_PaymentMethods::SOFORT, Pronamic_WP_Pay_Gateways_ING_KassaCompleet_PaymentMethods::SOFORT ),
+			array( CorePaymentMethods::BANCONTACT, PaymentMethods::BANCONTACT ),
+			array( CorePaymentMethods::BANK_TRANSFER, PaymentMethods::BANK_TRANSFER ),
+			array( CorePaymentMethods::CREDIT_CARD, PaymentMethods::CREDIT_CARD ),
+			array( CorePaymentMethods::IDEAL, PaymentMethods::IDEAL ),
+			array( CorePaymentMethods::PAYCONIQ, PaymentMethods::PAYCONIQ ),
+			array( CorePaymentMethods::PAYPAL, PaymentMethods::PAYPAL ),
+			array( CorePaymentMethods::SOFORT, PaymentMethods::SOFORT ),
 			array( 'not existing payment method', null ),
 		);
 	}
