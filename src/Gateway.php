@@ -32,8 +32,6 @@ class Gateway extends Core_Gateway {
 		);
 
 		$this->set_method( Gateway::METHOD_HTTP_REDIRECT );
-		$this->set_has_feedback( true );
-		$this->set_amount_minimum( 0.01 );
 
 		// Client
 		$this->client = new Client( $config->api_key );
