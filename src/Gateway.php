@@ -6,7 +6,6 @@ use Pronamic\WordPress\Pay\Core\Gateway as Core_Gateway;
 use Pronamic\WordPress\Pay\Core\PaymentMethods;
 use Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet\PaymentMethods as Methods;
 use Pronamic\WordPress\Pay\Payments\Payment;
-use Pronamic\WordPress\Pay\Util;
 
 /**
  * Title: ING Kassa Compleet
@@ -97,7 +96,7 @@ class Gateway extends Core_Gateway {
 		$request = new OrderRequest();
 
 		$request->currency          = $payment->get_currency();
-		$request->amount            = $payment->get_amount()->get_amount();
+		$request->amount            = $payment->get_amount()->get_cents();
 		$request->merchant_order_id = $payment->get_order_id();
 		$request->description       = $payment->get_description();
 		$request->return_url        = $payment->get_return_url();

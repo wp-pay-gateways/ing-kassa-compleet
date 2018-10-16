@@ -2,8 +2,6 @@
 
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
-use Pronamic\WordPress\Pay\Core\Util as Core_Util;
-
 /**
  * Title: ING Kassa Compleet order request
  * Description:
@@ -43,7 +41,7 @@ class OrderRequest {
 
 	public function get_array() {
 		$array = array(
-			'amount'       => Core_Util::amount_to_cents( $this->amount ),
+			'amount'       => $this->amount,
 			'currency'     => $this->currency,
 			'description'  => $this->description,
 			'return_url'   => $this->return_url,
