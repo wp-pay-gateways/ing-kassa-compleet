@@ -21,7 +21,7 @@ class OrderRequest {
 	/**
 	 * ISO 4217 currency code
 	 *
-	 * @doc http://en.wikipedia.org/wiki/ISO_4217
+	 * @link https://en.wikipedia.org/wiki/ISO_4217
 	 */
 	public $currency;
 

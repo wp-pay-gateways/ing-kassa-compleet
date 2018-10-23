@@ -18,7 +18,7 @@ class PaymentMethods {
 	/**
 	 * Constant for the Bancontact method.
 	 *
-	 * @see https://plugins.trac.wordpress.org/browser/ing-psp/tags/1.0/ing-php/src/Order/Transaction/PaymentMethod.php#L11
+	 * @link https://plugins.trac.wordpress.org/browser/ing-psp/tags/1.0/ing-php/src/Order/Transaction/PaymentMethod.php#L11
 	 * @var string
 	 */
 	const BANCONTACT = 'bancontact';
@@ -26,7 +26,7 @@ class PaymentMethods {
 	/**
 	 * Constant for the Banktransfer method.
 	 *
-	 * @see https://plugins.trac.wordpress.org/browser/ing-kassa-compleet/tags/1.0.6/ingkassacompleet.php#L339
+	 * @link https://plugins.trac.wordpress.org/browser/ing-kassa-compleet/tags/1.0.6/ingkassacompleet.php#L339
 	 * @var string
 	 */
 	const BANK_TRANSFER = 'bank-transfer';
@@ -34,7 +34,7 @@ class PaymentMethods {
 	/**
 	 * Constant for the Cash on Delivery method.
 	 *
-	 * @see https://plugins.trac.wordpress.org/browser/ing-kassa-compleet/tags/1.0.6/ingkassacompleet.php#L463
+	 * @link https://plugins.trac.wordpress.org/browser/ing-kassa-compleet/tags/1.0.6/ingkassacompleet.php#L463
 	 * @var string
 	 */
 	const CASH_ON_DELIVERY = 'cash-on-delivery';
@@ -42,7 +42,7 @@ class PaymentMethods {
 	/**
 	 * Constant for the CreditCard method.
 	 *
-	 * @see https://plugins.trac.wordpress.org/browser/ing-kassa-compleet/tags/1.0.6/ingkassacompleet.php#L219
+	 * @link https://plugins.trac.wordpress.org/browser/ing-kassa-compleet/tags/1.0.6/ingkassacompleet.php#L219
 	 * @var string
 	 */
 	const CREDIT_CARD = 'credit-card';
@@ -50,7 +50,7 @@ class PaymentMethods {
 	/**
 	 * Constant for the iDEAL payment method.
 	 *
-	 * @see https://plugins.trac.wordpress.org/browser/ing-kassa-compleet/tags/1.0.6/ingkassacompleet.php#L109
+	 * @link https://plugins.trac.wordpress.org/browser/ing-kassa-compleet/tags/1.0.6/ingkassacompleet.php#L109
 	 * @var string
 	 */
 	const IDEAL = 'ideal';
@@ -65,7 +65,7 @@ class PaymentMethods {
 	/**
 	 * Constant for the PayPal method.
 	 *
-	 * @see https://plugins.trac.wordpress.org/browser/ing-psp/tags/1.2/ing-php/src/Order/Transaction/PaymentMethod.php#L21
+	 * @link https://plugins.trac.wordpress.org/browser/ing-psp/tags/1.2/ing-php/src/Order/Transaction/PaymentMethod.php#L21
 	 * @var string
 	 */
 	const PAYPAL = 'paypal';
@@ -73,7 +73,7 @@ class PaymentMethods {
 	/**
 	 * Constant for the SOFORT method.
 	 *
-	 * @see https://plugins.trac.wordpress.org/browser/ing-psp/tags/1.0/ing-php/src/Order/Transaction/PaymentMethod.php#L11
+	 * @link https://plugins.trac.wordpress.org/browser/ing-psp/tags/1.0/ing-php/src/Order/Transaction/PaymentMethod.php#L11
 	 * @var string
 	 */
 	const SOFORT = 'sofort';
