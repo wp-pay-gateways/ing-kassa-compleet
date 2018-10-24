@@ -95,7 +95,7 @@ class Gateway extends Core_Gateway {
 	public function start( Payment $payment ) {
 		$request = new OrderRequest();
 
-		$request->currency          = $payment->get_currency();
+		$request->currency          = $payment->get_total_amount()->get_currency()->get_alphabetic_code();
 		$request->amount            = $payment->get_total_amount()->get_cents();
 		$request->merchant_order_id = $payment->get_order_id();
 		$request->description       = $payment->get_description();
