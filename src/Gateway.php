@@ -96,7 +96,7 @@ class Gateway extends Core_Gateway {
 		$request = new OrderRequest();
 
 		$request->currency          = $payment->get_currency();
-		$request->amount            = $payment->get_amount()->get_cents();
+		$request->amount            = $payment->get_total_amount()->get_cents();
 		$request->merchant_order_id = $payment->get_order_id();
 		$request->description       = $payment->get_description();
 		$request->return_url        = $payment->get_return_url();
@@ -144,7 +144,7 @@ class Gateway extends Core_Gateway {
 					'ING PSP',
 					'NL13INGB0005300060',
 					'INGBNL2A',
-					$payment->get_amount()->format_i18n(),
+					$payment->get_total_amount()->format_i18n(),
 					$order->transactions[0]->payment_method_details->reference
 				);
 
