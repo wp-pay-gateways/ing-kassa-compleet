@@ -6,7 +6,6 @@ use Pronamic\WordPress\Pay\Core\Gateway as Core_Gateway;
 use Pronamic\WordPress\Pay\Core\PaymentMethods;
 use Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet\PaymentMethods as Methods;
 use Pronamic\WordPress\Pay\Payments\Payment;
-use Pronamic\WordPress\Pay\Util;
 
 /**
  * Title: ING Kassa Compleet
@@ -15,7 +14,7 @@ use Pronamic\WordPress\Pay\Util;
  * Company: Pronamic
  *
  * @author  Reüel van der Steege
- * @version 1.0.7
+ * @version 2.0.1
  * @since   1.0.0
  */
 class Gateway extends Core_Gateway {
@@ -31,9 +30,7 @@ class Gateway extends Core_Gateway {
 			'payment_status_request',
 		);
 
-		$this->set_method( Gateway::METHOD_HTTP_REDIRECT );
-		$this->set_has_feedback( true );
-		$this->set_amount_minimum( 0.01 );
+		$this->set_method( self::METHOD_HTTP_REDIRECT );
 
 		// Client
 		$this->client = new Client( $config->api_key );
@@ -62,21 +59,6 @@ class Gateway extends Core_Gateway {
 		}
 
 		return $groups;
-	}
-
-	public function get_issuer_field() {
-		$payment_method = $this->get_payment_method();
-
-		if ( null === $payment_method || PaymentMethods::IDEAL === $payment_method ) {
-			return array(
-				'id'       => 'pronamic_ideal_issuer_id',
-				'name'     => 'pronamic_ideal_issuer_id',
-				'label'    => __( 'Choose your bank', 'pronamic_ideal' ),
-				'required' => true,
-				'type'     => 'select',
-				'choices'  => $this->get_transient_issuers(),
-			);
-		}
 	}
 
 	/**
@@ -113,8 +95,8 @@ class Gateway extends Core_Gateway {
 	public function start( Payment $payment ) {
 		$request = new OrderRequest();
 
-		$request->currency          = $payment->get_currency();
-		$request->amount            = $payment->get_amount()->get_amount();
+		$request->currency          = $payment->get_total_amount()->get_currency()->get_alphabetic_code();
+		$request->amount            = $payment->get_total_amount()->get_cents();
 		$request->merchant_order_id = $payment->get_order_id();
 		$request->description       = $payment->get_description();
 		$request->return_url        = $payment->get_return_url();
@@ -146,7 +128,7 @@ class Gateway extends Core_Gateway {
 
 			if ( PaymentMethods::BANK_TRANSFER === $payment_method ) {
 				// Set payment redirect message with received transaction reference.
-				// @see https://s3-eu-west-1.amazonaws.com/wl1-apidocs/api.kassacompleet.nl/index.html#payment-methods-without-the-redirect-flow-performing_redirect-requirement
+				// @link https://s3-eu-west-1.amazonaws.com/wl1-apidocs/api.kassacompleet.nl/index.html#payment-methods-without-the-redirect-flow-performing_redirect-requirement
 				$message = sprintf(
 					/* translators: 1: payment provider name, 2: PSP account name, 3: PSP account number, 4: PSP account BIC, 5: formatted amount, 6: transaction reference */
 					__( 'You have chosen the payment method "Bank transfer". To complete your payment, please transfer the amount to the payment service provider (%1$s).
@@ -162,7 +144,7 @@ class Gateway extends Core_Gateway {
 					'ING PSP',
 					'NL13INGB0005300060',
 					'INGBNL2A',
-					$payment->get_amount()->format_i18n(),
+					$payment->get_total_amount()->format_i18n(),
 					$order->transactions[0]->payment_method_details->reference
 				);
 
