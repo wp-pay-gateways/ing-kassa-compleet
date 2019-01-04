@@ -5,7 +5,7 @@ namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 /**
  * Title: ING Kassa Compleet order request
  * Description:
- * Copyright: Copyright (c) 2005 - 2018
+ * Copyright: 2005-2019 Pronamic
  * Company: Pronamic
  *
  * @author  Reüel van der Steege
