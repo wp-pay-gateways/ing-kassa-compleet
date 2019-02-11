@@ -21,7 +21,7 @@ class Gateway extends Core_Gateway {
 	/**
 	 * Constructs and initializes an ING Kassa Compleet gateway
 	 *
-	 * @param Config $config
+	 * @param Config $config Config.
 	 */
 	public function __construct( Config $config ) {
 		parent::__construct( $config );
@@ -32,7 +32,7 @@ class Gateway extends Core_Gateway {
 
 		$this->set_method( self::METHOD_HTTP_REDIRECT );
 
-		// Client
+		// Client.
 		$this->client = new Client( $config->api_key );
 	}
 
@@ -90,7 +90,9 @@ class Gateway extends Core_Gateway {
 	/**
 	 * Start
 	 *
-	 * @see Pronamic_WP_Pay_Gateway::start()
+	 * @param Payment $payment Payment.
+	 *
+	 * @see Core_Gateway::start()
 	 */
 	public function start( Payment $payment ) {
 		$request = new OrderRequest();
@@ -121,17 +123,24 @@ class Gateway extends Core_Gateway {
 		if ( $order ) {
 			$payment->set_transaction_id( $order->id );
 
-			$action_url = add_query_arg( array(
-				'payment_redirect' => $payment->get_id(),
-				'key'              => $payment->key,
-			), home_url( '/' ) );
+			$action_url = add_query_arg(
+				array(
+					'payment_redirect' => $payment->get_id(),
+					'key'              => $payment->key,
+				),
+				home_url( '/' )
+			);
 
 			if ( PaymentMethods::BANK_TRANSFER === $payment_method ) {
-				// Set payment redirect message with received transaction reference.
-				// @link https://s3-eu-west-1.amazonaws.com/wl1-apidocs/api.kassacompleet.nl/index.html#payment-methods-without-the-redirect-flow-performing_redirect-requirement
+				/*
+				 * Set payment redirect message with received transaction reference.
+				 *
+				 * @link https://s3-eu-west-1.amazonaws.com/wl1-apidocs/api.kassacompleet.nl/index.html#payment-methods-without-the-redirect-flow-performing_redirect-requirement
+				 */
 				$message = sprintf(
 					/* translators: 1: payment provider name, 2: PSP account name, 3: PSP account number, 4: PSP account BIC, 5: formatted amount, 6: transaction reference */
-					__( 'You have chosen the payment method "Bank transfer". To complete your payment, please transfer the amount to the payment service provider (%1$s).
+					__(
+						'You have chosen the payment method "Bank transfer". To complete your payment, please transfer the amount to the payment service provider (%1$s).
 
 <strong>Account holder:</strong> %2$s
 <strong>Account IBAN:</strong> %3$s
@@ -139,7 +148,9 @@ class Gateway extends Core_Gateway {
 <strong>Amount:</strong> %5$s
 <strong>Transaction reference:</strong> %6$s
 
-<em>Please note: only payments with the mentioned transaction reference can be processed.</em>', 'pronamic_ideal' ),
+<em>Please note: only payments with the mentioned transaction reference can be processed.</em>',
+						'pronamic_ideal'
+					),
 					__( 'ING', 'pronamic_ideal' ),
 					'ING PSP',
 					'NL13INGB0005300060',
@@ -168,7 +179,7 @@ class Gateway extends Core_Gateway {
 	/**
 	 * Update status of the specified payment
 	 *
-	 * @param Payment $payment
+	 * @param Payment $payment Payment.
 	 */
 	public function update_status( Payment $payment ) {
 		$transaction_id = $payment->get_transaction_id();

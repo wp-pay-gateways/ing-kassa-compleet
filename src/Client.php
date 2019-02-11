@@ -39,6 +39,8 @@ class Client {
 
 	/**
 	 * Constructs and initalize an ING Kassa Compleet client object
+	 *
+	 * @param string $api_key API key.
 	 */
 	public function __construct( $api_key ) {
 		$this->api_key = $api_key;
@@ -56,9 +58,9 @@ class Client {
 	/**
 	 * Send request with the specified action and parameters
 	 *
-	 * @param string $endpoint
-	 * @param string $method
-	 * @param array $data
+	 * @param string $endpoint API endpoint.
+	 * @param string $method   HTTP method to use for request.
+	 * @param array  $data     Data to send.
 	 */
 	private function send_request( $endpoint, $method = 'POST', array $data = array() ) {
 		$url = self::API_URL . $endpoint;
@@ -73,15 +75,25 @@ class Client {
 			$headers['Content-Type'] = 'application/json';
 		}
 
-		$return = wp_remote_request( $url, array(
-			'method'  => $method,
-			'headers' => $headers,
-			'body'    => $data,
-		) );
+		$return = wp_remote_request(
+			$url,
+			array(
+				'method'  => $method,
+				'headers' => $headers,
+				'body'    => $data,
+			)
+		);
 
 		return $return;
 	}
 
+	/**
+	 * Create order.
+	 *
+	 * @param OrderRequest $request Order request.
+	 *
+	 * @return array|mixed|object|null
+	 */
 	public function create_order( OrderRequest $request ) {
 		$result = null;
 
@@ -125,6 +137,13 @@ class Client {
 		return $result;
 	}
 
+	/**
+	 * Get order.
+	 *
+	 * @param string $order_id Order ID.
+	 *
+	 * @return array|mixed|object|null
+	 */
 	public function get_order( $order_id ) {
 		$result = null;
 

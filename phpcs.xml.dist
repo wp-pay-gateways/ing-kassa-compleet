@@ -35,7 +35,7 @@
 		<exclude name="WordPress.VIP.RestrictedFunctions.file_get_contents_file_get_contents" />
 	</rule>
 
-	<rule ref="WordPress.VIP.SlowDBQuery.slow_db_query_meta_key">
+	<rule ref="WordPress.DB.SlowDBQuery.slow_db_query_meta_key">
 		<!-- The 'meta_key' is not related to an slow database query. -->
 		<exclude-pattern>/src/Settings.php</exclude-pattern>
 	</rule>
