@@ -1,4 +1,12 @@
 <?php
+/**
+ * Config.
+ *
+ * @author    Pronamic <info@pronamic.eu>
+ * @copyright 2005-2019 Pronamic
+ * @license   GPL-3.0-or-later
+ * @package   Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet
+ */
 
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
@@ -15,5 +23,10 @@ use Pronamic\WordPress\Pay\Core\GatewayConfig;
  * @since   1.0.0
  */
 class Config extends GatewayConfig {
+	/**
+	 * Api key.
+	 *
+	 * @var string
+	 */
 	public $api_key;
 }

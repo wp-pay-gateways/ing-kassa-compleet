@@ -1,4 +1,12 @@
 <?php
+/**
+ * Settings.
+ *
+ * @author    Pronamic <info@pronamic.eu>
+ * @copyright 2005-2019 Pronamic
+ * @license   GPL-3.0-or-later
+ * @package   Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet
+ */
 
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
@@ -15,13 +23,23 @@ use Pronamic\WordPress\Pay\Core\GatewaySettings;
  * @since   1.0.0
  */
 class Settings extends GatewaySettings {
+	/**
+	 * Settings constructor.
+	 */
 	public function __construct() {
 		add_filter( 'pronamic_pay_gateway_sections', array( $this, 'sections' ) );
 		add_filter( 'pronamic_pay_gateway_fields', array( $this, 'fields' ) );
 	}
 
+	/**
+	 * Settings sections.
+	 *
+	 * @param array $sections Sections.
+	 *
+	 * @return array
+	 */
 	public function sections( array $sections ) {
-		// iDEAL
+		// ING Kassa Compleet.
 		$sections['ing_kassa_compleet'] = array(
 			'title'       => __( 'ING Kassa Compleet', 'pronamic_ideal' ),
 			'methods'     => array( 'ing_kassa_compleet' ),
@@ -32,7 +50,7 @@ class Settings extends GatewaySettings {
 			),
 		);
 
-		// Transaction feedback
+		// Transaction feedback.
 		$sections['ing_kassa_compleet_feedback'] = array(
 			'title'       => __( 'Transaction feedback', 'pronamic_ideal' ),
 			'methods'     => array( 'ing_kassa_compleet' ),
@@ -43,12 +61,19 @@ class Settings extends GatewaySettings {
 			),
 		);
 
-		// Return sections
+		// Return sections.
 		return $sections;
 	}
 
+	/**
+	 * Settings fields.
+	 *
+	 * @param array $fields Fields.
+	 *
+	 * @return array
+	 */
 	public function fields( array $fields ) {
-		// API Key
+		// API Key.
 		$fields[] = array(
 			'filter'   => FILTER_SANITIZE_STRING,
 			'section'  => 'ing_kassa_compleet',
@@ -68,7 +93,7 @@ class Settings extends GatewaySettings {
 			),
 		);
 
-		// Transaction feedback
+		// Transaction feedback.
 		$fields[] = array(
 			'section' => 'ing_kassa_compleet',
 			'methods' => array( 'ing_kassa_compleet' ),
@@ -80,7 +105,7 @@ class Settings extends GatewaySettings {
 			),
 		);
 
-		// Webhook URL
+		// Webhook URL.
 		$fields[] = array(
 			'section'  => 'ing_kassa_compleet_feedback',
 			'title'    => __( 'Webhook URL', 'pronamic_ideal' ),
@@ -95,7 +120,7 @@ class Settings extends GatewaySettings {
 			),
 		);
 
-		// Return fields
+		// Return fields.
 		return $fields;
 	}
 }

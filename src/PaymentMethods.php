@@ -1,4 +1,12 @@
 <?php
+/**
+ * Payment Methods.
+ *
+ * @author    Pronamic <info@pronamic.eu>
+ * @copyright 2005-2019 Pronamic
+ * @license   GPL-3.0-or-later
+ * @package   Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet
+ */
 
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
@@ -83,7 +91,7 @@ class PaymentMethods {
 	 *
 	 * @since 1.0.5
 	 *
-	 * @param string $method
+	 * @param string $payment_method WordPress payment method.
 	 *
 	 * @return string
 	 */

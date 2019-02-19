@@ -1,8 +1,16 @@
 <?php
+/**
+ * Client.
+ *
+ * @author    Pronamic <info@pronamic.eu>
+ * @copyright 2005-2019 Pronamic
+ * @license   GPL-3.0-or-later
+ * @package   Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet
+ */
+
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
 use Pronamic\WordPress\Pay\Core\XML\Security;
-use Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet\OrderRequest;
 use WP_Error;
 
 /**
@@ -61,6 +69,8 @@ class Client {
 	 * @param string $endpoint API endpoint.
 	 * @param string $method   HTTP method to use for request.
 	 * @param array  $data     Data to send.
+	 *
+	 * @return array|WP_Error
 	 */
 	private function send_request( $endpoint, $method = 'POST', array $data = array() ) {
 		$url = self::API_URL . $endpoint;
@@ -100,6 +110,12 @@ class Client {
 		$data = $request->get_array();
 
 		$response = $this->send_request( 'orders/', 'POST', $data );
+
+		if ( is_wp_error( $response ) ) {
+			$this->error = $response;
+
+			return $result;
+		}
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 
@@ -149,6 +165,12 @@ class Client {
 
 		$response = $this->send_request( 'orders/' . $order_id . '/', 'GET' );
 
+		if ( is_wp_error( $response ) ) {
+			$this->error = $response;
+
+			return $result;
+		}
+
 		$response_code = wp_remote_retrieve_response_code( $response );
 
 		if ( 200 === $response_code ) {
@@ -162,14 +184,20 @@ class Client {
 	}
 
 	/**
-	 * Get issuers
+	 * Get issuers.
 	 *
-	 * @return array
+	 * @return array|bool
 	 */
 	public function get_issuers() {
 		$issuers = false;
 
 		$response = $this->send_request( 'ideal/issuers/', 'GET' );
+
+		if ( is_wp_error( $response ) ) {
+			$this->error = $response;
+
+			return $issuers;
+		}
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 

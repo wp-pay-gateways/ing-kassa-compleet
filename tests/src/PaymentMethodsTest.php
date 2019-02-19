@@ -1,8 +1,16 @@
 <?php
+/**
+ * Test Payment Methods.
+ *
+ * @author    Pronamic <info@pronamic.eu>
+ * @copyright 2005-2019 Pronamic
+ * @license   GPL-3.0-or-later
+ * @package   Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet
+ */
 
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
-use Pronamic\WordPress\Pay\Core\PaymentMethods as CorePaymentMethods;
+use Pronamic\WordPress\Pay\Core\PaymentMethods as Core_PaymentMethods;
 
 /**
  * Title: ING Kassa Compleet payment methods helper test
@@ -20,8 +28,8 @@ class PaymentMethodsTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 * @dataProvider test_provider
 	 *
-	 * @param $payment_method
-	 * @param $expected
+	 * @param string $payment_method Payment method.
+	 * @param string $expected       Expected value.
 	 */
 	public function test_transform( $payment_method, $expected ) {
 		$ing_method = PaymentMethods::transform( $payment_method );
@@ -36,13 +44,13 @@ class PaymentMethodsTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_provider() {
 		return array(
-			array( CorePaymentMethods::BANCONTACT, PaymentMethods::BANCONTACT ),
-			array( CorePaymentMethods::BANK_TRANSFER, PaymentMethods::BANK_TRANSFER ),
-			array( CorePaymentMethods::CREDIT_CARD, PaymentMethods::CREDIT_CARD ),
-			array( CorePaymentMethods::IDEAL, PaymentMethods::IDEAL ),
-			array( CorePaymentMethods::PAYCONIQ, PaymentMethods::PAYCONIQ ),
-			array( CorePaymentMethods::PAYPAL, PaymentMethods::PAYPAL ),
-			array( CorePaymentMethods::SOFORT, PaymentMethods::SOFORT ),
+			array( Core_PaymentMethods::BANCONTACT, PaymentMethods::BANCONTACT ),
+			array( Core_PaymentMethods::BANK_TRANSFER, PaymentMethods::BANK_TRANSFER ),
+			array( Core_PaymentMethods::CREDIT_CARD, PaymentMethods::CREDIT_CARD ),
+			array( Core_PaymentMethods::IDEAL, PaymentMethods::IDEAL ),
+			array( Core_PaymentMethods::PAYCONIQ, PaymentMethods::PAYCONIQ ),
+			array( Core_PaymentMethods::PAYPAL, PaymentMethods::PAYPAL ),
+			array( Core_PaymentMethods::SOFORT, PaymentMethods::SOFORT ),
 			array( 'not existing payment method', null ),
 		);
 	}

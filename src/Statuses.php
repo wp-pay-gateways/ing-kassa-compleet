@@ -1,4 +1,12 @@
 <?php
+/**
+ * Statuses.
+ *
+ * @author    Pronamic <info@pronamic.eu>
+ * @copyright 2005-2019 Pronamic
+ * @license   GPL-3.0-or-later
+ * @package   Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet
+ */
 
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
@@ -62,7 +70,7 @@ class Statuses {
 	/**
 	 * Transform an ING Kassa Compleet status to a global status
 	 *
-	 * @param string $status
+	 * @param string $status ING Kassa Compleet status to transform.
 	 *
 	 * @return string|null
 	 */

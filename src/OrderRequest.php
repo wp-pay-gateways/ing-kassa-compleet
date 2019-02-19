@@ -1,4 +1,12 @@
 <?php
+/**
+ * Order Request.
+ *
+ * @author    Pronamic <info@pronamic.eu>
+ * @copyright 2005-2019 Pronamic
+ * @license   GPL-3.0-or-later
+ * @package   Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet
+ */
 
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
@@ -15,6 +23,8 @@ namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 class OrderRequest {
 	/**
 	 * Amount in cents
+	 *
+	 * @var float
 	 */
 	public $amount;
 
@@ -22,23 +32,51 @@ class OrderRequest {
 	 * ISO 4217 currency code
 	 *
 	 * @link https://en.wikipedia.org/wiki/ISO_4217
+	 *
+	 * @var string
 	 */
 	public $currency;
 
+	/**
+	 * Issuer.
+	 *
+	 * @var string
+	 */
 	public $issuer;
 
+	/**
+	 * Method.
+	 *
+	 * @var string
+	 */
 	public $method;
 
+	/**
+	 * Merchant order ID.
+	 *
+	 * @var string
+	 */
 	public $merchant_order_id;
 
+	/**
+	 * Description.
+	 *
+	 * @var string
+	 */
 	public $description;
 
+	/**
+	 * Return URL.
+	 *
+	 * @var string
+	 */
 	public $return_url;
 
-	public function __construct() {
-
-	}
-
+	/**
+	 * Get array.
+	 *
+	 * @return array
+	 */
 	public function get_array() {
 		$array = array(
 			'amount'       => $this->amount,
@@ -48,15 +86,15 @@ class OrderRequest {
 			'transactions' => array(),
 		);
 
-		// Array filter will remove values NULL, FALSE and empty strings ('')
+		// Array filter will remove values NULL, FALSE and empty strings ('').
 		$array = array_filter( $array );
 
-		// Add payment method
+		// Add payment method.
 		$payment_method = array(
 			'payment_method' => $this->method,
 		);
 
-		// Add payment method details
+		// Add payment method details.
 		switch ( $this->method ) {
 			case PaymentMethods::IDEAL:
 				$payment_method['payment_method_details'] = array(

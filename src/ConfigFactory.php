@@ -1,4 +1,12 @@
 <?php
+/**
+ * Config Factory.
+ *
+ * @author    Pronamic <info@pronamic.eu>
+ * @copyright 2005-2019 Pronamic
+ * @license   GPL-3.0-or-later
+ * @package   Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet
+ */
 
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
@@ -15,11 +23,18 @@ use Pronamic\WordPress\Pay\Core\GatewayConfigFactory;
  * @since   1.0.0
  */
 class ConfigFactory extends GatewayConfigFactory {
+	/**
+	 * Get config with specified post ID.
+	 *
+	 * @param int $post_id Post ID.
+	 *
+	 * @return Config|null
+	 */
 	public function get_config( $post_id ) {
 		$config = new Config();
 
-		$config->api_key = get_post_meta( $post_id, '_pronamic_gateway_ing_kassa_compleet_api_key', true );
-		$config->mode    = get_post_meta( $post_id, '_pronamic_gateway_mode', true );
+		$config->api_key = $this->get_meta( $post_id, 'ing_kassa_compleet_api_key' );
+		$config->mode    = $this->get_meta( $post_id, 'mode' );
 
 		return $config;
 	}
