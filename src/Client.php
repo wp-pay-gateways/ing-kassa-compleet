@@ -111,7 +111,7 @@ class Client {
 
 		$response = $this->send_request( 'orders/', 'POST', $data );
 
-		if ( is_wp_error( $response ) ) {
+		if ( $response instanceof WP_Error ) {
 			$this->error = $response;
 
 			return $result;
@@ -165,7 +165,7 @@ class Client {
 
 		$response = $this->send_request( 'orders/' . $order_id . '/', 'GET' );
 
-		if ( is_wp_error( $response ) ) {
+		if ( $response instanceof WP_Error ) {
 			$this->error = $response;
 
 			return $result;
@@ -193,7 +193,7 @@ class Client {
 
 		$response = $this->send_request( 'ideal/issuers/', 'GET' );
 
-		if ( is_wp_error( $response ) ) {
+		if ( $response instanceof WP_Error ) {
 			$this->error = $response;
 
 			return $issuers;
