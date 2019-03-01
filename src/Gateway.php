@@ -137,13 +137,7 @@ class Gateway extends Core_Gateway {
 		if ( $order ) {
 			$payment->set_transaction_id( $order->id );
 
-			$action_url = add_query_arg(
-				array(
-					'payment_redirect' => $payment->get_id(),
-					'key'              => $payment->key,
-				),
-				home_url( '/' )
-			);
+			$action_url = $payment->get_pay_redirect_url();
 
 			if ( Core_PaymentMethods::BANK_TRANSFER === $payment_method ) {
 				/*
