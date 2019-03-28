@@ -40,14 +40,24 @@ class Gateway extends Core_Gateway {
 	public function __construct( Config $config ) {
 		parent::__construct( $config );
 
-		$this->supports = array(
-			'payment_status_request',
-		);
-
 		$this->set_method( self::METHOD_HTTP_REDIRECT );
+
+		// Supported features.
+		$this->supports = self::get_supported_features();
 
 		// Client.
 		$this->client = new Client( $config->api_key );
+	}
+
+	/**
+	 * Get supported features.
+	 *
+	 * @return array
+	 */
+	public static function get_supported_features() {
+		return array(
+			'payment_status_request',
+		);
 	}
 
 	/**
