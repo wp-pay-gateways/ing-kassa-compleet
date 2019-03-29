@@ -57,6 +57,7 @@ class Gateway extends Core_Gateway {
 	public static function get_supported_features() {
 		return array(
 			'payment_status_request',
+			'webhook_manual_config',
 		);
 	}
 
