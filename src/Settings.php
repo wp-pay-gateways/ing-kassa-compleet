@@ -11,6 +11,7 @@
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
 use Pronamic\WordPress\Pay\Core\GatewaySettings;
+use Pronamic\WordPress\Pay\WebhookManager;
 
 /**
  * Title: ING Kassa Compleet gateway settings
@@ -59,6 +60,7 @@ class Settings extends GatewaySettings {
 				__( 'Set the Webhook URL in the %s dashboard to receive automatic transaction status updates.', 'pronamic_ideal' ),
 				__( 'ING Kassa Compleet', 'pronamic_ideal' )
 			),
+			'features'    => Gateway::get_supported_features(),
 		);
 
 		// Return sections.
@@ -95,14 +97,12 @@ class Settings extends GatewaySettings {
 
 		// Transaction feedback.
 		$fields[] = array(
-			'section' => 'ing_kassa_compleet',
-			'methods' => array( 'ing_kassa_compleet' ),
-			'title'   => __( 'Transaction feedback', 'pronamic_ideal' ),
-			'type'    => 'description',
-			'html'    => sprintf(
-				'<span class="dashicons dashicons-warning"></span> %s',
-				__( 'Receiving payment status updates needs additional configuration, if not yet completed.', 'pronamic_ideal' )
-			),
+			'section'  => 'ing_kassa_compleet',
+			'methods'  => array( 'ing_kassa_compleet' ),
+			'title'    => __( 'Transaction feedback', 'pronamic_ideal' ),
+			'type'     => 'description',
+			'html'     => __( 'Receiving payment status updates needs additional configuration.', 'pronamic_ideal' ),
+			'features' => Gateway::get_supported_features(),
 		);
 
 		// Webhook URL.
@@ -120,7 +120,27 @@ class Settings extends GatewaySettings {
 			),
 		);
 
+		// Webhook status.
+		$fields[] = array(
+			'section'  => 'ing_kassa_compleet_feedback',
+			'methods'  => array( 'ing_kassa_compleet' ),
+			'title'    => __( 'Status', 'pronamic_ideal' ),
+			'type'     => 'description',
+			'callback' => array( $this, 'feedback_status' ),
+		);
+
 		// Return fields.
 		return $fields;
+	}
+
+	/**
+	 * Transaction feedback status.
+	 *
+	 * @param array $field Settings field.
+	 */
+	public function feedback_status( $field ) {
+		$features = Gateway::get_supported_features();
+
+		WebhookManager::settings_status( $field, $features );
 	}
 }
