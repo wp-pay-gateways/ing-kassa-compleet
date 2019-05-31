@@ -32,6 +32,10 @@ class Integration extends AbstractIntegration {
 		$this->provider      = 'ing';
 		$this->product_url   = 'https://www.ing.nl/zakelijk/betalen/geld-ontvangen/kassa-compleet/';
 		$this->dashboard_url = 'https://portal.kassacompleet.nl/';
+		$this->supports      = array(
+			'payment_status_request',
+			'webhook',
+		);
 
 		// Actions.
 		$function = array( __NAMESPACE__ . '\Listener', 'listen' );
@@ -66,7 +70,6 @@ class Integration extends AbstractIntegration {
 			'title'    => _x( 'API Key', 'ing_kassa_compleet', 'pronamic_ideal' ),
 			'type'     => 'text',
 			'classes'  => array( 'regular-text', 'code' ),
-			'methods'  => array( 'ing_kassa_compleet' ),
 			'tooltip'  => sprintf(
 				'%s %s.',
 				__( 'API key', 'pronamic_ideal' ),
