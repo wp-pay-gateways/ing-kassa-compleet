@@ -46,15 +46,6 @@ class Integration extends AbstractIntegration {
 	}
 
 	/**
-	 * Get config factory class.
-	 *
-	 * @return string
-	 */
-	public function get_config_factory_class() {
-		return __NAMESPACE__ . '\ConfigFactory';
-	}
-
-	/**
 	 * Get settings fields.
 	 *
 	 * @return array
@@ -97,5 +88,20 @@ class Integration extends AbstractIntegration {
 		);
 
 		return $fields;
+	}
+	/**
+	 * Get config with specified post ID.
+	 *
+	 * @param int $post_id Post ID.
+	 *
+	 * @return Config|null
+	 */
+	public function get_config( $post_id ) {
+		$config = new Config();
+
+		$config->api_key = $this->get_meta( $post_id, 'ing_kassa_compleet_api_key' );
+		$config->mode    = $this->get_meta( $post_id, 'mode' );
+
+		return $config;
 	}
 }
