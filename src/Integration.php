@@ -35,6 +35,7 @@ class Integration extends AbstractIntegration {
 		$this->supports      = array(
 			'payment_status_request',
 			'webhook',
+			'webhook_log',
 		);
 
 		// Actions.
