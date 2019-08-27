@@ -1,16 +1,23 @@
 <?php
+/**
+ * Gateway.
+ *
+ * @author    Pronamic <info@pronamic.eu>
+ * @copyright 2005-2019 Pronamic
+ * @license   GPL-3.0-or-later
+ * @package   Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet
+ */
 
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
 use Pronamic\WordPress\Pay\Core\Gateway as Core_Gateway;
-use Pronamic\WordPress\Pay\Core\PaymentMethods;
-use Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet\PaymentMethods as Methods;
+use Pronamic\WordPress\Pay\Core\PaymentMethods as Core_PaymentMethods;
 use Pronamic\WordPress\Pay\Payments\Payment;
 
 /**
  * Title: ING Kassa Compleet
  * Description:
- * Copyright: Copyright (c) 2005 - 2018
+ * Copyright: 2005-2019 Pronamic
  * Company: Pronamic
  *
  * @author  Reüel van der Steege
@@ -19,34 +26,42 @@ use Pronamic\WordPress\Pay\Payments\Payment;
  */
 class Gateway extends Core_Gateway {
 	/**
+	 * Client.
+	 *
+	 * @var Client
+	 */
+	protected $client;
+
+	/**
 	 * Constructs and initializes an ING Kassa Compleet gateway
 	 *
-	 * @param Config $config
+	 * @param Config $config Config.
 	 */
 	public function __construct( Config $config ) {
 		parent::__construct( $config );
 
+		$this->set_method( self::METHOD_HTTP_REDIRECT );
+
+		// Supported features.
 		$this->supports = array(
 			'payment_status_request',
 		);
 
-		$this->set_method( self::METHOD_HTTP_REDIRECT );
-
-		// Client
+		// Client.
 		$this->client = new Client( $config->api_key );
 	}
 
 	/**
 	 * Get issuers
 	 *
-	 * @see Pronamic_WP_Pay_Gateway::get_issuers()
+	 * @see Core_Gateway::get_issuers()
 	 */
 	public function get_issuers() {
 		$groups = array();
 
 		$result = $this->client->get_issuers();
 
-		if ( $result ) {
+		if ( is_array( $result ) ) {
 			$groups[] = array(
 				'options' => $result,
 			);
@@ -64,24 +79,24 @@ class Gateway extends Core_Gateway {
 	/**
 	 * Get supported payment methods
 	 *
-	 * @see Pronamic_WP_Pay_Gateway::get_supported_payment_methods()
+	 * @see Core_Gateway::get_supported_payment_methods()
 	 */
 	public function get_supported_payment_methods() {
 		return array(
-			PaymentMethods::BANCONTACT,
-			PaymentMethods::BANK_TRANSFER,
-			PaymentMethods::CREDIT_CARD,
-			PaymentMethods::IDEAL,
-			PaymentMethods::PAYCONIQ,
-			PaymentMethods::PAYPAL,
-			PaymentMethods::SOFORT,
+			Core_PaymentMethods::BANCONTACT,
+			Core_PaymentMethods::BANK_TRANSFER,
+			Core_PaymentMethods::CREDIT_CARD,
+			Core_PaymentMethods::IDEAL,
+			Core_PaymentMethods::PAYCONIQ,
+			Core_PaymentMethods::PAYPAL,
+			Core_PaymentMethods::SOFORT,
 		);
 	}
 
 	/**
 	 * Is payment method required to start transaction?
 	 *
-	 * @see Pronamic_WP_Pay_Gateway::payment_method_is_required()
+	 * @see Core_Gateway::payment_method_is_required()
 	 */
 	public function payment_method_is_required() {
 		return true;
@@ -90,7 +105,9 @@ class Gateway extends Core_Gateway {
 	/**
 	 * Start
 	 *
-	 * @see Pronamic_WP_Pay_Gateway::start()
+	 * @param Payment $payment Payment.
+	 *
+	 * @see Core_Gateway::start()
 	 */
 	public function start( Payment $payment ) {
 		$request = new OrderRequest();
@@ -107,31 +124,32 @@ class Gateway extends Core_Gateway {
 		$payment_method = $payment->get_method();
 
 		if ( empty( $payment_method ) && ! empty( $issuer ) ) {
-			$payment_method = PaymentMethods::IDEAL;
+			$payment_method = Core_PaymentMethods::IDEAL;
 		}
 
-		if ( PaymentMethods::IDEAL === $payment_method ) {
+		if ( Core_PaymentMethods::IDEAL === $payment_method ) {
 			$request->issuer = $issuer;
 		}
 
-		$request->method = Methods::transform( $payment_method );
+		$request->method = PaymentMethods::transform( $payment_method );
 
 		$order = $this->client->create_order( $request );
 
 		if ( $order ) {
 			$payment->set_transaction_id( $order->id );
 
-			$action_url = add_query_arg( array(
-				'payment_redirect' => $payment->get_id(),
-				'key'              => $payment->key,
-			), home_url( '/' ) );
+			$action_url = $payment->get_pay_redirect_url();
 
-			if ( PaymentMethods::BANK_TRANSFER === $payment_method ) {
-				// Set payment redirect message with received transaction reference.
-				// @link https://s3-eu-west-1.amazonaws.com/wl1-apidocs/api.kassacompleet.nl/index.html#payment-methods-without-the-redirect-flow-performing_redirect-requirement
+			if ( Core_PaymentMethods::BANK_TRANSFER === $payment_method ) {
+				/*
+				 * Set payment redirect message with received transaction reference.
+				 *
+				 * @link https://s3-eu-west-1.amazonaws.com/wl1-apidocs/api.kassacompleet.nl/index.html#payment-methods-without-the-redirect-flow-performing_redirect-requirement
+				 */
 				$message = sprintf(
 					/* translators: 1: payment provider name, 2: PSP account name, 3: PSP account number, 4: PSP account BIC, 5: formatted amount, 6: transaction reference */
-					__( 'You have chosen the payment method "Bank transfer". To complete your payment, please transfer the amount to the payment service provider (%1$s).
+					__(
+						'You have chosen the payment method "Bank transfer". To complete your payment, please transfer the amount to the payment service provider (%1$s).
 
 <strong>Account holder:</strong> %2$s
 <strong>Account IBAN:</strong> %3$s
@@ -139,7 +157,9 @@ class Gateway extends Core_Gateway {
 <strong>Amount:</strong> %5$s
 <strong>Transaction reference:</strong> %6$s
 
-<em>Please note: only payments with the mentioned transaction reference can be processed.</em>', 'pronamic_ideal' ),
+<em>Please note: only payments with the mentioned transaction reference can be processed.</em>',
+						'pronamic_ideal'
+					),
 					__( 'ING', 'pronamic_ideal' ),
 					'ING PSP',
 					'NL13INGB0005300060',
@@ -168,7 +188,7 @@ class Gateway extends Core_Gateway {
 	/**
 	 * Update status of the specified payment
 	 *
-	 * @param Payment $payment
+	 * @param Payment $payment Payment.
 	 */
 	public function update_status( Payment $payment ) {
 		$transaction_id = $payment->get_transaction_id();

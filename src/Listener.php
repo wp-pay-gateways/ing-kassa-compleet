@@ -1,4 +1,12 @@
 <?php
+/**
+ * Webhook Listener.
+ *
+ * @author    Pronamic <info@pronamic.eu>
+ * @copyright 2005-2019 Pronamic
+ * @license   GPL-3.0-or-later
+ * @package   Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet
+ */
 
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
@@ -7,7 +15,7 @@ use Pronamic\WordPress\Pay\Plugin;
 /**
  * Title: ING Kassa Compleet listener
  * Description:
- * Copyright: Copyright (c) 2005 - 2018
+ * Copyright: 2005-2019 Pronamic
  * Company: Pronamic
  *
  * @author  Reüel van der Steege
@@ -40,6 +48,9 @@ class Listener {
 			);
 
 			$payment->add_note( $note );
+
+			// Log webhook request.
+			do_action( 'pronamic_pay_webhook_log_payment', $payment );
 
 			// Update payment.
 			Plugin::update_payment( $payment, false );

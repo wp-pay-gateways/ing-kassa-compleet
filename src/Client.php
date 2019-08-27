@@ -1,14 +1,22 @@
 <?php
+/**
+ * Client.
+ *
+ * @author    Pronamic <info@pronamic.eu>
+ * @copyright 2005-2019 Pronamic
+ * @license   GPL-3.0-or-later
+ * @package   Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet
+ */
+
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
 use Pronamic\WordPress\Pay\Core\XML\Security;
-use Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet\OrderRequest;
 use WP_Error;
 
 /**
  * Title: ING Kassa Compleet client
  * Description:
- * Copyright: Copyright (c) 2005 - 2018
+ * Copyright: 2005-2019 Pronamic
  * Company: Pronamic
  *
  * @author  Reüel van der Steege
@@ -39,6 +47,8 @@ class Client {
 
 	/**
 	 * Constructs and initalize an ING Kassa Compleet client object
+	 *
+	 * @param string $api_key API key.
 	 */
 	public function __construct( $api_key ) {
 		$this->api_key = $api_key;
@@ -56,14 +66,17 @@ class Client {
 	/**
 	 * Send request with the specified action and parameters
 	 *
-	 * @param string $endpoint
-	 * @param string $method
-	 * @param array $data
+	 * @param string $endpoint API endpoint.
+	 * @param string $method   HTTP method to use for request.
+	 * @param array  $data     Data to send.
+	 *
+	 * @return array|WP_Error
 	 */
 	private function send_request( $endpoint, $method = 'POST', array $data = array() ) {
 		$url = self::API_URL . $endpoint;
 
 		$headers = array(
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 			'Authorization' => 'Basic ' . base64_encode( $this->api_key . ':' ),
 		);
 
@@ -73,21 +86,37 @@ class Client {
 			$headers['Content-Type'] = 'application/json';
 		}
 
-		$return = wp_remote_request( $url, array(
-			'method'  => $method,
-			'headers' => $headers,
-			'body'    => $data,
-		) );
+		$return = wp_remote_request(
+			$url,
+			array(
+				'method'  => $method,
+				'headers' => $headers,
+				'body'    => $data,
+			)
+		);
 
 		return $return;
 	}
 
+	/**
+	 * Create order.
+	 *
+	 * @param OrderRequest $request Order request.
+	 *
+	 * @return array|mixed|object|null
+	 */
 	public function create_order( OrderRequest $request ) {
 		$result = null;
 
 		$data = $request->get_array();
 
 		$response = $this->send_request( 'orders/', 'POST', $data );
+
+		if ( $response instanceof WP_Error ) {
+			$this->error = $response;
+
+			return $result;
+		}
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 
@@ -125,10 +154,23 @@ class Client {
 		return $result;
 	}
 
+	/**
+	 * Get order.
+	 *
+	 * @param string $order_id Order ID.
+	 *
+	 * @return array|mixed|object|null
+	 */
 	public function get_order( $order_id ) {
 		$result = null;
 
 		$response = $this->send_request( 'orders/' . $order_id . '/', 'GET' );
+
+		if ( $response instanceof WP_Error ) {
+			$this->error = $response;
+
+			return $result;
+		}
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 
@@ -143,14 +185,20 @@ class Client {
 	}
 
 	/**
-	 * Get issuers
+	 * Get issuers.
 	 *
-	 * @return array
+	 * @return array|bool
 	 */
 	public function get_issuers() {
 		$issuers = false;
 
 		$response = $this->send_request( 'ideal/issuers/', 'GET' );
+
+		if ( $response instanceof WP_Error ) {
+			$this->error = $response;
+
+			return $issuers;
+		}
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 

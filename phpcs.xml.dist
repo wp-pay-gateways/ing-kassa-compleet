@@ -1,19 +1,27 @@
 <?xml version="1.0"?>
 
 <ruleset name="WordPress Pay ING Kassa Compleet rules">
-	<config name="installed_paths" value="vendor/wp-coding-standards/wpcs,vendor/wimg/php-compatibility" />
-
 	<config name="minimum_supported_wp_version" value="4.7" />
 
-	<config name="testVersion" value="5.3-99.0" />
+	<config name="testVersion" value="5.3-" />
 
-	<rule ref="PHPCompatibility" />
+	<file>.</file>
+
+	<arg name="colors"/>
+	<arg name="extensions" value="php" />
+	<arg value="sp" />
+
+	<exclude-pattern>node_modules/*</exclude-pattern>
+	<exclude-pattern>tests/bootstrap.php</exclude-pattern>
+	<exclude-pattern>tests/wp-config.php</exclude-pattern>
+	<exclude-pattern>vendor/*</exclude-pattern>
+	<exclude-pattern>wordpress/*</exclude-pattern>
+	<exclude-pattern type="relative">^wp-content/*</exclude-pattern>
+
+	<rule ref="PHPCompatibilityWP" />
 
 	<rule ref="WordPress">
 		<exclude name="Generic.Files.LowercasedFilename.NotFound" />
-
-		<exclude name="Squiz.Commenting" />
-		<exclude name="Squiz.PHP.CommentedOutCode.Found" />
 
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
 		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
@@ -24,8 +32,8 @@
 		<exclude name="WordPress.VIP.RestrictedFunctions.file_get_contents_file_get_contents" />
 	</rule>
 
-	<rule ref="WordPress.VIP.SlowDBQuery.slow_db_query_meta_key">
+	<rule ref="WordPress.DB.SlowDBQuery.slow_db_query_meta_key">
 		<!-- The 'meta_key' is not related to an slow database query. -->
-		<exclude-pattern>/src/Settings.php</exclude-pattern>
+		<exclude-pattern>/src/Integration.php</exclude-pattern>
 	</rule>
 </ruleset>
