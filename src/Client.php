@@ -76,6 +76,7 @@ class Client {
 		$url = self::API_URL . $endpoint;
 
 		$headers = array(
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 			'Authorization' => 'Basic ' . base64_encode( $this->api_key . ':' ),
 		);
 
