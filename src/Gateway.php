@@ -59,18 +59,17 @@ class Gateway extends Core_Gateway {
 	public function get_issuers() {
 		$groups = array();
 
-		$result = $this->client->get_issuers();
+		try {
+			$result = $this->client->get_issuers();
+		} catch ( \Pronamic\WordPress\Pay\PayException $e ) {
+			// @todo What todo on error?
+			return $groups;
+		}
 
 		if ( is_array( $result ) ) {
 			$groups[] = array(
 				'options' => $result,
 			);
-		}
-
-		$error = $this->client->get_error();
-
-		if ( is_wp_error( $error ) ) {
-			$this->error = $error;
 		}
 
 		return $groups;
@@ -133,13 +132,23 @@ class Gateway extends Core_Gateway {
 
 		$request->method = PaymentMethods::transform( $payment_method );
 
+		// Create order.
 		$order = $this->client->create_order( $request );
 
 		if ( $order ) {
+			// Transaction ID.
 			$payment->set_transaction_id( $order->id );
 
+			// Action URL.
 			$action_url = $payment->get_pay_redirect_url();
 
+			if ( isset( $order->transactions[0]->payment_url ) ) {
+				$action_url = $order->transactions[0]->payment_url;
+			}
+
+			$payment->set_action_url( $action_url );
+
+			// Bank transfer payment redirect message.
 			if ( Core_PaymentMethods::BANK_TRANSFER === $payment_method ) {
 				/*
 				 * Set payment redirect message with received transaction reference.
@@ -170,18 +179,6 @@ class Gateway extends Core_Gateway {
 
 				$payment->set_meta( 'payment_redirect_message', $message );
 			}
-
-			if ( isset( $order->transactions[0]->payment_url ) ) {
-				$action_url = $order->transactions[0]->payment_url;
-			}
-
-			$payment->set_action_url( $action_url );
-		}
-
-		$error = $this->client->get_error();
-
-		if ( is_wp_error( $error ) ) {
-			$this->error = $error;
 		}
 	}
 
@@ -197,7 +194,13 @@ class Gateway extends Core_Gateway {
 			return;
 		}
 
-		$order = $this->client->get_order( $transaction_id );
+		try {
+			$order = $this->client->get_order( $transaction_id );
+		} catch ( \Pronamic\WordPress\Pay\PayException $e ) {
+			$payment->add_note( sprintf( '%s: %s', $e->get_error_code(), $e->get_message() ) );
+
+			return;
+		}
 
 		if ( ! is_object( $order ) ) {
 			return;
@@ -215,12 +218,6 @@ class Gateway extends Core_Gateway {
 			if ( isset( $details->consumer_iban ) ) {
 				$payment->set_consumer_iban( $details->consumer_iban );
 			}
-		}
-
-		$error = $this->client->get_error();
-
-		if ( is_wp_error( $error ) ) {
-			$this->error = $error;
 		}
 	}
 }
