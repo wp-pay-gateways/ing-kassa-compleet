@@ -31,13 +31,14 @@ class Integration extends AbstractIntegration {
 		$this->name          = 'ING - Kassa Compleet';
 		$this->provider      = 'ing';
 		$this->product_url   = 'https://www.ing.nl/zakelijk/betalen/geld-ontvangen/kassa-compleet/';
-		$this->manual_url    = __( 'https://www.pronamic.eu/support/how-to-connect-ing-kassa-compleet-with-wordpress-via-pronamic-pay/', 'pronamic_ideal' );
 		$this->dashboard_url = 'https://portal.kassacompleet.nl/';
 		$this->supports      = array(
 			'payment_status_request',
 			'webhook',
 			'webhook_log',
 		);
+
+		$this->set_manual_url( __( 'https://www.pronamic.eu/support/how-to-connect-ing-kassa-compleet-with-wordpress-via-pronamic-pay/', 'pronamic_ideal' ) );
 
 		// Actions.
 		$function = array( __NAMESPACE__ . '\Listener', 'listen' );
