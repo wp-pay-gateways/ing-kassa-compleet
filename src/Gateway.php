@@ -125,50 +125,25 @@ class Gateway extends Core_Gateway {
 		if ( $order ) {
 			$payment->set_transaction_id( $order->id );
 
-			$action_url = $payment->get_pay_redirect_url();
-
-			if ( Core_PaymentMethods::BANK_TRANSFER === $payment_method ) {
-				/*
-				 * Set payment redirect message with received transaction reference.
-				 *
-				 * @link https://s3-eu-west-1.amazonaws.com/wl1-apidocs/api.kassacompleet.nl/index.html#payment-methods-without-the-redirect-flow-performing_redirect-requirement
-				 */
-				$message = sprintf(
-					/* translators: 1: payment provider name, 2: PSP account name, 3: PSP account number, 4: PSP account BIC, 5: formatted amount, 6: transaction reference */
-					__(
-						'You have chosen the payment method "Bank transfer". To complete your payment, please transfer the amount to the payment service provider (%1$s).
-
-<strong>Account holder:</strong> %2$s
-<strong>Account IBAN:</strong> %3$s
-<strong>Account BIC:</strong> %4$s
-<strong>Amount:</strong> %5$s
-<strong>Transaction reference:</strong> %6$s
-
-<em>Please note: only payments with the mentioned transaction reference can be processed.</em>',
-						'pronamic_ideal'
-					),
-					__( 'ING', 'pronamic_ideal' ),
-					'ING PSP',
-					'NL13INGB0005300060',
-					'INGBNL2A',
-					$payment->get_total_amount()->format_i18n(),
-					$order->transactions[0]->payment_method_details->reference
-				);
-
-				$payment->set_meta( 'payment_redirect_message', $message );
-			}
-
 			// Set action URL to order pay URL.
 			if ( isset( $order->order_url ) ) {
-				$action_url = $order->order_url;
+				$payment->set_action_url( $order->order_url );
 			}
 
 			// Set action URL to transction payment URL (only if payment method is set).
 			if ( isset( $order->transactions[0]->payment_url ) ) {
-				$action_url = $order->transactions[0]->payment_url;
+				$payment->set_action_url( $order->transactions[0]->payment_url );
 			}
 
-			$payment->set_action_url( $action_url );
+			// Bank transfer instructions.
+			if ( Core_PaymentMethods::BANK_TRANSFER === $payment_method && isset( $order->transactions[0]->id ) ) {
+				$payment->set_action_url(
+					\sprintf(
+						'https://api.kassacompleet.nl/pay/%s/completed/',
+						esc_html( $order->transactions[0]->id )
+					)
+				);
+			}
 		}
 
 		$error = $this->client->get_error();
