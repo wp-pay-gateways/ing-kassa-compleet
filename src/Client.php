@@ -11,6 +11,7 @@
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
 use Pronamic\WordPress\Pay\Core\XML\Security;
+use WP_Error;
 
 /**
  * Title: ING Kassa Compleet client
@@ -38,6 +39,13 @@ class Client {
 	private $api_key;
 
 	/**
+	 * Error
+	 *
+	 * @var WP_Error
+	 */
+	private $error;
+
+	/**
 	 * Constructs and initalize an ING Kassa Compleet client object
 	 *
 	 * @param string $api_key API key.
@@ -47,13 +55,22 @@ class Client {
 	}
 
 	/**
+	 * Error
+	 *
+	 * @return WP_Error
+	 */
+	public function get_error() {
+		return $this->error;
+	}
+
+	/**
 	 * Send request with the specified action and parameters
 	 *
 	 * @param string $endpoint API endpoint.
 	 * @param string $method   HTTP method to use for request.
 	 * @param array  $data     Data to send.
 	 *
-	 * @return array
+	 * @return array|WP_Error
 	 */
 	private function send_request( $endpoint, $method = 'POST', array $data = array() ) {
 		$url = self::API_URL . $endpoint;
@@ -78,10 +95,6 @@ class Client {
 			)
 		);
 
-		if ( is_wp_error( $return ) ) {
-			throw new \Pronamic\WordPress\Pay\GatewayException( 'ing_kassa_compleet', $return->get_error_message() );
-		}
-
 		return $return;
 	}
 
@@ -98,6 +111,12 @@ class Client {
 		$data = $request->get_array();
 
 		$response = $this->send_request( 'orders/', 'POST', $data );
+
+		if ( $response instanceof WP_Error ) {
+			$this->error = $response;
+
+			return $result;
+		}
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 
@@ -129,7 +148,7 @@ class Client {
 		}
 
 		if ( isset( $error_msg, $error ) ) {
-			throw new \Pronamic\WordPress\Pay\GatewayException( 'ing_kassa_compleet', $error_msg, $error );
+			$this->error = new WP_Error( 'ing_kassa_compleet_error', $error_msg, $error );
 		}
 
 		return $result;
@@ -146,6 +165,12 @@ class Client {
 		$result = null;
 
 		$response = $this->send_request( 'orders/' . $order_id . '/', 'GET' );
+
+		if ( $response instanceof WP_Error ) {
+			$this->error = $response;
+
+			return $result;
+		}
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 
@@ -169,15 +194,36 @@ class Client {
 
 		$response = $this->send_request( 'ideal/issuers/', 'GET' );
 
+		if ( $response instanceof WP_Error ) {
+			$this->error = $response;
+
+			return $issuers;
+		}
+
 		$response_code = wp_remote_retrieve_response_code( $response );
 
-		$body = wp_remote_retrieve_body( $response );
+		if ( 200 === $response_code ) {
+			$body = wp_remote_retrieve_body( $response );
 
-		// NULL is returned if the json cannot be decoded or if the encoded data is deeper than the recursion limit.
-		$result = json_decode( $body );
+			// NULL is returned if the json cannot be decoded or if the encoded data is deeper than the recursion limit.
+			$result = json_decode( $body );
 
-		if ( 200 !== $response_code ) {
-			$error_msg = $result->error->value;
+			if ( null !== $result ) {
+				$issuers = array();
+
+				foreach ( $result as $issuer ) {
+					$id   = Security::filter( $issuer->id );
+					$name = Security::filter( $issuer->name );
+
+					$issuers[ $id ] = $name;
+				}
+			}
+		} else {
+			$body = wp_remote_retrieve_body( $response );
+
+			$ing_result = json_decode( $body );
+
+			$error_msg = $ing_result->error->value;
 
 			if ( 401 === $response_code ) {
 				// An unauthorized API call has nothing to do with the browser of the user in our case, remove to prevent confusion.
@@ -187,18 +233,7 @@ class Client {
 				$error_msg .= ' Please check the API key.';
 			}
 
-			throw new \Pronamic\WordPress\Pay\GatewayException( 'ing_kassa_compleet', $error_msg, $result->error );
-		}
-
-		if ( null !== $result ) {
-			$issuers = array();
-
-			foreach ( $result as $issuer ) {
-				$id   = Security::filter( $issuer->id );
-				$name = Security::filter( $issuer->name );
-
-				$issuers[ $id ] = $name;
-			}
+			$this->error = new WP_Error( 'ing_kassa_compleet_error', $error_msg, $ing_result->error );
 		}
 
 		return $issuers;
