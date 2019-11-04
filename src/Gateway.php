@@ -94,15 +94,6 @@ class Gateway extends Core_Gateway {
 	}
 
 	/**
-	 * Is payment method required to start transaction?
-	 *
-	 * @see Core_Gateway::payment_method_is_required()
-	 */
-	public function payment_method_is_required() {
-		return true;
-	}
-
-	/**
 	 * Start
 	 *
 	 * @param Payment $payment Payment.
@@ -122,10 +113,6 @@ class Gateway extends Core_Gateway {
 		$issuer = $payment->get_issuer();
 
 		$payment_method = $payment->get_method();
-
-		if ( empty( $payment_method ) && ! empty( $issuer ) ) {
-			$payment_method = Core_PaymentMethods::IDEAL;
-		}
 
 		if ( Core_PaymentMethods::IDEAL === $payment_method ) {
 			$request->issuer = $issuer;
@@ -171,6 +158,12 @@ class Gateway extends Core_Gateway {
 				$payment->set_meta( 'payment_redirect_message', $message );
 			}
 
+			// Set action URL to order pay URL.
+			if ( isset( $order->order_url ) ) {
+				$action_url = $order->order_url;
+			}
+
+			// Set action URL to transction payment URL (only if payment method is set).
 			if ( isset( $order->transactions[0]->payment_url ) ) {
 				$action_url = $order->transactions[0]->payment_url;
 			}

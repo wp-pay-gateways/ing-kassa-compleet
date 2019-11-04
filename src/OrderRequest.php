@@ -89,22 +89,24 @@ class OrderRequest {
 		// Array filter will remove values NULL, FALSE and empty strings ('').
 		$array = array_filter( $array );
 
-		// Add payment method.
-		$payment_method = array(
-			'payment_method' => $this->method,
-		);
+		if ( null !== $this->method ) {
+			// Add payment method.
+			$payment_method = array(
+				'payment_method' => $this->method,
+			);
 
-		// Add payment method details.
-		switch ( $this->method ) {
-			case PaymentMethods::IDEAL:
-				$payment_method['payment_method_details'] = array(
-					'issuer_id' => $this->issuer,
-				);
+			// Add payment method details.
+			switch ( $this->method ) {
+				case PaymentMethods::IDEAL:
+					$payment_method['payment_method_details'] = array(
+						'issuer_id' => $this->issuer,
+					);
 
-				break;
+					break;
+			}
+
+			$array['transactions'] = array( $payment_method );
 		}
-
-		$array['transactions'] = array( $payment_method );
 
 		return $array;
 	}
