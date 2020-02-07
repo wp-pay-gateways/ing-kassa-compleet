@@ -27,6 +27,8 @@ class Integration extends AbstractIntegration {
 	 * Integration constructor.
 	 */
 	public function __construct() {
+		parent::__construct();
+
 		$this->id            = 'ing-kassa-compleet';
 		$this->name          = 'ING - Kassa Compleet';
 		$this->provider      = 'ing';
