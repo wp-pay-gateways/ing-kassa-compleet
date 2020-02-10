@@ -10,7 +10,7 @@
 
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
-use Pronamic\WordPress\Pay\Gateways\Common\AbstractIntegration;
+use Pronamic\WordPress\Pay\AbstractGatewayIntegration;
 
 /**
  * Title: ING Kassa Compleet integration
@@ -22,25 +22,31 @@ use Pronamic\WordPress\Pay\Gateways\Common\AbstractIntegration;
  * @version 2.0.3
  * @since   1.0.0
  */
-class Integration extends AbstractIntegration {
+class Integration extends AbstractGatewayIntegration {
 	/**
-	 * Integration constructor.
+	 * Construct ING Kassa Compleet integration.
+	 *
+	 * @param array $args Arguments.
 	 */
-	public function __construct() {
-		parent::__construct();
-
-		$this->id            = 'ing-kassa-compleet';
-		$this->name          = 'ING - Kassa Compleet';
-		$this->provider      = 'ing';
-		$this->product_url   = 'https://www.ing.nl/zakelijk/betalen/geld-ontvangen/kassa-compleet/';
-		$this->dashboard_url = 'https://portal.kassacompleet.nl/';
-		$this->supports      = array(
-			'payment_status_request',
-			'webhook',
-			'webhook_log',
+	public function __construct( $args = array() ) {
+		$args = wp_parse_args(
+			$args,
+			array(
+				'id'            => 'ing-kassa-compleet',
+				'name'          => 'ING - Kassa Compleet',
+				'provider'      => 'ing',
+				'product_url'   => 'https://www.ing.nl/zakelijk/betalen/geld-ontvangen/kassa-compleet/',
+				'dashboard_url' => 'https://portal.kassacompleet.nl/',
+				'supports'      => array(
+					'payment_status_request',
+					'webhook',
+					'webhook_log',
+				),
+				'manual_url'    => \__( 'https://www.pronamic.eu/support/how-to-connect-ing-kassa-compleet-with-wordpress-via-pronamic-pay/', 'pronamic_ideal' ),
+			)
 		);
 
-		$this->set_manual_url( __( 'https://www.pronamic.eu/support/how-to-connect-ing-kassa-compleet-with-wordpress-via-pronamic-pay/', 'pronamic_ideal' ) );
+		parent::__construct( $args );
 
 		// Actions.
 		$function = array( __NAMESPACE__ . '\Listener', 'listen' );
