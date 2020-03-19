@@ -1,6 +1,6 @@
 {
   "name": "ing-kassa-compleet",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "ING Kassa Compleet driver for the WordPress payment processing library.",
   "repository": {
     "type": "git",
