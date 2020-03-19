@@ -3,13 +3,14 @@
  * Gateway.
  *
  * @author    Pronamic <info@pronamic.eu>
- * @copyright 2005-2019 Pronamic
+ * @copyright 2005-2020 Pronamic
  * @license   GPL-3.0-or-later
  * @package   Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet
  */
 
 namespace Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet;
 
+use Pronamic\WordPress\Pay\Banks\BankAccountDetails;
 use Pronamic\WordPress\Pay\Core\Gateway as Core_Gateway;
 use Pronamic\WordPress\Pay\Core\PaymentMethods as Core_PaymentMethods;
 use Pronamic\WordPress\Pay\Payments\Payment;
@@ -17,7 +18,7 @@ use Pronamic\WordPress\Pay\Payments\Payment;
 /**
  * Title: ING Kassa Compleet
  * Description:
- * Copyright: 2005-2019 Pronamic
+ * Copyright: 2005-2020 Pronamic
  * Company: Pronamic
  *
  * @author  Reüel van der Steege
@@ -174,14 +175,22 @@ class Gateway extends Core_Gateway {
 		$payment->set_status( Statuses::transform( $order->status ) );
 
 		if ( isset( $order->transactions[0]->payment_method_details ) ) {
+			$consumer_bank_details = $payment->get_consumer_bank_details();
+
+			if ( null === $consumer_bank_details ) {
+				$consumer_bank_details = new BankAccountDetails();
+
+				$payment->set_consumer_bank_details( $consumer_bank_details );
+			}
+
 			$details = $order->transactions[0]->payment_method_details;
 
 			if ( isset( $details->consumer_name ) ) {
-				$payment->set_consumer_name( $details->consumer_name );
+				$consumer_bank_details->set_name( $details->consumer_name );
 			}
 
 			if ( isset( $details->consumer_iban ) ) {
-				$payment->set_consumer_iban( $details->consumer_iban );
+				$consumer_bank_details->set_iban( $details->consumer_iban );
 			}
 		}
 
