@@ -76,7 +76,7 @@ class Integration extends AbstractGatewayIntegration {
 				'%s %s.',
 				__( 'API key', 'pronamic_ideal' ),
 				sprintf(
-					/* translators: %s: ING Kassa Compleet */
+					/* translators: %s: payment provider name */
 					__( 'as mentioned in the %s dashboard', 'pronamic_ideal' ),
 					__( 'ING Kassa Compleet', 'pronamic_ideal' )
 				)
@@ -92,7 +92,7 @@ class Integration extends AbstractGatewayIntegration {
 			'value'    => add_query_arg( 'ing_kassa_compleet_webhook', '', home_url( '/' ) ),
 			'readonly' => true,
 			'tooltip'  => sprintf(
-				/* translators: %s: ING Kassa Compleet */
+				/* translators: %s: payment provider name */
 				__( 'Copy the Webhook URL to the %s dashboard to receive automatic transaction status updates.', 'pronamic_ideal' ),
 				__( 'ING Kassa Compleet', 'pronamic_ideal' )
 			),
