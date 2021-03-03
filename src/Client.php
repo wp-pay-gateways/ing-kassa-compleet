@@ -46,7 +46,7 @@ class Client {
 	private $error;
 
 	/**
-	 * Constructs and initalize an ING Kassa Compleet client object
+	 * Construct and initialize an ING Kassa Compleet client object
 	 *
 	 * @param string $api_key API key.
 	 */

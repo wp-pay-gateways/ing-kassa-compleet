@@ -44,7 +44,7 @@ This projects adheres to [Semantic Versioning](http://semver.org/) and [Keep a C
 - Added error status.
 
 ## [1.0.4] - 2016-06-08
-- Simplified the gateay payment start function.
+- Simplified the gateway payment start function.
 
 ## [1.0.3] - 2016-03-22
 - Added webhook listener.

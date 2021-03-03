@@ -131,7 +131,7 @@ class Gateway extends Core_Gateway {
 				$payment->set_action_url( $order->order_url );
 			}
 
-			// Set action URL to transction payment URL (only if payment method is set).
+			// Set action URL to transaction payment URL (only if payment method is set).
 			if ( isset( $order->transactions[0]->payment_url ) ) {
 				$payment->set_action_url( $order->transactions[0]->payment_url );
 			}
