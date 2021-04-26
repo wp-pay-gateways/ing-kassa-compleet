@@ -3,7 +3,7 @@
  * Integration.
  *
  * @author    Pronamic <info@pronamic.eu>
- * @copyright 2005-2020 Pronamic
+ * @copyright 2005-2021 Pronamic
  * @license   GPL-3.0-or-later
  * @package   Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet
  */
@@ -15,7 +15,7 @@ use Pronamic\WordPress\Pay\AbstractGatewayIntegration;
 /**
  * Title: ING Kassa Compleet integration
  * Description:
- * Copyright: 2005-2020 Pronamic
+ * Copyright: 2005-2021 Pronamic
  * Company: Pronamic
  *
  * @author  Reüel van der Steege
@@ -76,7 +76,7 @@ class Integration extends AbstractGatewayIntegration {
 				'%s %s.',
 				__( 'API key', 'pronamic_ideal' ),
 				sprintf(
-					/* translators: %s: ING Kassa Compleet */
+					/* translators: %s: payment provider name */
 					__( 'as mentioned in the %s dashboard', 'pronamic_ideal' ),
 					__( 'ING Kassa Compleet', 'pronamic_ideal' )
 				)
@@ -92,7 +92,7 @@ class Integration extends AbstractGatewayIntegration {
 			'value'    => add_query_arg( 'ing_kassa_compleet_webhook', '', home_url( '/' ) ),
 			'readonly' => true,
 			'tooltip'  => sprintf(
-				/* translators: %s: ING Kassa Compleet */
+				/* translators: %s: payment provider name */
 				__( 'Copy the Webhook URL to the %s dashboard to receive automatic transaction status updates.', 'pronamic_ideal' ),
 				__( 'ING Kassa Compleet', 'pronamic_ideal' )
 			),

@@ -3,7 +3,7 @@
  * Gateway.
  *
  * @author    Pronamic <info@pronamic.eu>
- * @copyright 2005-2020 Pronamic
+ * @copyright 2005-2021 Pronamic
  * @license   GPL-3.0-or-later
  * @package   Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet
  */
@@ -18,7 +18,7 @@ use Pronamic\WordPress\Pay\Payments\Payment;
 /**
  * Title: ING Kassa Compleet
  * Description:
- * Copyright: 2005-2020 Pronamic
+ * Copyright: 2005-2021 Pronamic
  * Company: Pronamic
  *
  * @author  Reüel van der Steege
@@ -131,7 +131,7 @@ class Gateway extends Core_Gateway {
 				$payment->set_action_url( $order->order_url );
 			}
 
-			// Set action URL to transction payment URL (only if payment method is set).
+			// Set action URL to transaction payment URL (only if payment method is set).
 			if ( isset( $order->transactions[0]->payment_url ) ) {
 				$payment->set_action_url( $order->transactions[0]->payment_url );
 			}

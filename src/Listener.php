@@ -3,7 +3,7 @@
  * Webhook Listener.
  *
  * @author    Pronamic <info@pronamic.eu>
- * @copyright 2005-2020 Pronamic
+ * @copyright 2005-2021 Pronamic
  * @license   GPL-3.0-or-later
  * @package   Pronamic\WordPress\Pay\Gateways\ING\KassaCompleet
  */
@@ -15,7 +15,7 @@ use Pronamic\WordPress\Pay\Plugin;
 /**
  * Title: ING Kassa Compleet listener
  * Description:
- * Copyright: 2005-2020 Pronamic
+ * Copyright: 2005-2021 Pronamic
  * Company: Pronamic
  *
  * @author  Reüel van der Steege
@@ -42,7 +42,7 @@ class Listener {
 
 			// Add note.
 			$note = sprintf(
-				/* translators: %s: ING */
+				/* translators: %s: payment provider name */
 				__( 'Webhook requested by %s.', 'pronamic_ideal' ),
 				__( 'ING', 'pronamic_ideal' )
 			);
