@@ -24,7 +24,7 @@ class OrderRequest {
 	/**
 	 * Amount in cents
 	 *
-	 * @var float
+	 * @var string
 	 */
 	public $amount;
 

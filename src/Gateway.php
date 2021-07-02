@@ -105,7 +105,7 @@ class Gateway extends Core_Gateway {
 		$request = new OrderRequest();
 
 		$request->currency          = $payment->get_total_amount()->get_currency()->get_alphabetic_code();
-		$request->amount            = $payment->get_total_amount()->get_cents();
+		$request->amount            = $payment->get_total_amount()->get_minor_units()->format( 0, '', '' );
 		$request->merchant_order_id = $payment->get_order_id();
 		$request->description       = $payment->get_description();
 		$request->return_url        = $payment->get_return_url();
