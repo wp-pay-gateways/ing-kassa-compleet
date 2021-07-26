@@ -1,4 +1,4 @@
-# WordPress Pay Gateway: ING Kassa Compleet
+# [DEPRECATED] WordPress Pay Gateway: ING Kassa Compleet
 
 **ING Kassa Compleet driver for the WordPress payment processing library.**
 
