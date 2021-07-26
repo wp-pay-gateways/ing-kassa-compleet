@@ -32,6 +32,7 @@ class Integration extends AbstractGatewayIntegration {
 		$args = wp_parse_args(
 			$args,
 			array(
+				'deprecated'    => true,
 				'id'            => 'ing-kassa-compleet',
 				'name'          => 'ING - Kassa Compleet',
 				'provider'      => 'ing',
